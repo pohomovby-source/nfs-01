@@ -6,14 +6,16 @@ This is a full-stack React + Express application for a car import service called
 ## Architecture
 - **Frontend**: React with TypeScript, Tailwind CSS, Lucide icons
 - **Backend**: Express.js with TypeScript
-- **Database**: PostgreSQL with Drizzle ORM (currently using in-memory storage)
+- **Database**: PostgreSQL with Drizzle ORM (fully integrated)
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS with custom animations
 
 ## Current Status
 - Project structure follows Replit full-stack template
 - Server runs on port 5000 with both API and frontend served from same port
-- Basic user schema exists in shared/schema.ts
+- Full database schema with cars, users, inquiries, and services tables
+- Complete API routes for all database operations
+- Sample data seeded for development and testing
 - Frontend contains multiple sections: Header, Hero, Services, Stages, Popular Cars, etc.
 
 ## Recent Changes
@@ -23,6 +25,9 @@ This is a full-stack React + Express application for a car import service called
 - Reduced component sizes for better mobile experience
 - Fixed overlapping elements and improved spacing
 - Server configured to run on port 5000 with proper host binding
+- Integrated PostgreSQL database with comprehensive schema
+- Added API routes for cars, inquiries, users, and services
+- Seeded database with sample car and service data
 
 ## User Preferences
 - Language: Russian content (car import service targeting Russian market)
@@ -35,4 +40,7 @@ This is a full-stack React + Express application for a car import service called
 - [x] Fixing TypeScript errors in components
 - [x] Testing project functionality
 - [x] Improving layout and responsive design
+- [x] Integrating PostgreSQL database
+- [x] Creating API routes and data models
+- [x] Seeding database with sample data
 - [x] Completing migration verification
