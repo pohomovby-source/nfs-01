@@ -1,0 +1,219 @@
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Calendar, DollarSign } from 'lucide-react';
+
+const PopularLotsSection: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const lots = [
+    {
+      id: 1,
+      name: '2017 Fiat 500X Trekking',
+      vin: 'ZFBCFXCB5HP517978',
+      price: 0,
+      date: '2024-11-11',
+      image: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 2,
+      name: '1967 Chevrolet Impala',
+      vin: '168877D213648',
+      price: 0,
+      date: '1970-01-01',
+      image: 'https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 3,
+      name: '2023 Jeep Grand Cherokee Laredo',
+      vin: '1C4RJHAG1P8804740',
+      price: 0,
+      date: '2024-10-30',
+      image: 'https://images.pexels.com/photos/3802508/pexels-photo-3802508.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 4,
+      name: '2018 Honda Civic Ex-L',
+      vin: 'JHMFC1F77JX034973',
+      price: 0,
+      date: '1970-01-01',
+      image: 'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 5,
+      name: '2023 Honda Cr-V Sport Touring',
+      vin: '7FARS6H96PE024696',
+      price: 9500,
+      date: '2024-07-24',
+      image: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 6,
+      name: '2022 Chevrolet Equinox Awd',
+      vin: '3GNAXTEV2NL139666',
+      price: 0,
+      date: '1970-01-01',
+      image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 7,
+      name: '2023 Tesla Model 3',
+      vin: 'LRW3E1FA4PC845640',
+      price: 0,
+      date: '2024-10-29',
+      image: 'https://images.pexels.com/photos/919073/pexels-photo-919073.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      id: 8,
+      name: '2016 Mercedes-Benz Glc',
+      vin: 'WDC0G4KB2GF084924',
+      price: 0,
+      date: '2024-10-23',
+      image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400'
+    }
+  ];
+
+  const itemsPerSlide = 4;
+  const totalSlides = Math.ceil(lots.length / itemsPerSlide);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const formatDate = (dateString: string) => {
+    if (dateString === '1970-01-01') return 'Не указана';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU');
+  };
+
+  const formatPrice = (price: number) => {
+    return price === 0 ? '0$' : `${price.toLocaleString()}$`;
+  };
+
+  return (
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Популярные лоты
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Актуальные предложения автомобилей с аукционов США
+          </p>
+        </div>
+
+        <div className="relative">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+            disabled={totalSlides <= 1}
+          >
+            <ChevronLeft className="w-6 h-6 text-gray-600" />
+          </button>
+
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+            disabled={totalSlides <= 1}
+          >
+            <ChevronRight className="w-6 h-6 text-gray-600" />
+          </button>
+
+          {/* Carousel Container */}
+          <div className="overflow-hidden rounded-2xl">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentSlide * 100}%)`,
+              }}
+            >
+              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                <div
+                  key={slideIndex}
+                  className="w-full flex-shrink-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  {lots
+                    .slice(slideIndex * itemsPerSlide, (slideIndex + 1) * itemsPerSlide)
+                    .map((lot) => (
+                      <div
+                        key={lot.id}
+                        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100"
+                      >
+                        {/* Image */}
+                        <div className="relative h-48 overflow-hidden">
+                          <img
+                            src={lot.image}
+                            alt={lot.name}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          {/* Price Badge */}
+                          <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                            {formatPrice(lot.price)}
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6">
+                          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                            {lot.name}
+                          </h3>
+                          
+                          <div className="text-sm text-gray-500 mb-4 font-mono">
+                            VIN: {lot.vin}
+                          </div>
+
+                          <div className="flex items-center justify-between text-sm text-gray-600">
+                            <div className="flex items-center space-x-1">
+                              <Calendar className="w-4 h-4" />
+                              <span>{formatDate(lot.date)}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <DollarSign className="w-4 h-4" />
+                              <span className="font-semibold text-blue-600">
+                                {formatPrice(lot.price)}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Action Button */}
+                          <button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                            Подробнее
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots Indicator */}
+          {totalSlides > 1 && (
+            <div className="flex justify-center space-x-2 mt-8">
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide ? 'bg-blue-600 w-8' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="text-center mt-12">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            Смотреть все лоты
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default PopularLotsSection;
