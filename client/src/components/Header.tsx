@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     { id: 4, name: 'Audi Q7', type: 'Внедорожник', year: 2022, price: '95 000' },
   ];
 
-  const categories = {
+  const categories: Record<string, string[]> = {
     'Седаны': ['Toyota Camry', 'BMW 3 Series', 'Mercedes C-Class', 'Audi A4'],
     'Кроссоверы': ['BMW X5', 'Mercedes GLE', 'Audi Q7', 'Toyota RAV4'],
     'Внедорожники': ['Land Rover Defender', 'Jeep Wrangler', 'Toyota Land Cruiser'],
