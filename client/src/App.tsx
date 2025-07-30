@@ -4,7 +4,7 @@ import HeroSection from './components/HeroSection';
 import ServicesGrid from './components/ServicesGrid';
 import VehicleCategoriesSection from './components/VehicleCategoriesSection';
 import StagesSection from './components/StagesSection';
-import PopularCarsSection from './components/PopularCarsSection';
+import PopularLotsSection from './components/PopularLotsSection';
 import BrandSelector from './components/BrandSelector';
 import WhyChooseUsSection from './components/WhyChooseUsSection';
 import LastCarsSection from './components/LastCarsSection';
@@ -21,7 +21,7 @@ function App() {
         <ServicesGrid />
         <VehicleCategoriesSection />
         <StagesSection />
-        <PopularCarsSection />
+        <PopularLotsSection />
         <BrandSelector />
         <WhyChooseUsSection />
         <LastCarsSection />
