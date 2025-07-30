@@ -58,26 +58,26 @@ const PopularCarsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-in slide-in-from-bottom duration-1000">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10 animate-in slide-in-from-bottom duration-1000">
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
             Популярные лоты
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Самые востребованные автомобили в нашем каталоге с проверенной историей
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {popularCars.map((car, index) => (
             <div
               key={car.id}
-              className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+              className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* Car Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-36 sm:h-40 overflow-hidden">
                 <img
                   src={car.image}
                   alt={car.name}
@@ -86,41 +86,41 @@ const PopularCarsSection: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 
                 {/* Action Buttons */}
-                <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                    <Heart className="w-5 h-5 text-gray-700" />
+                <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                    <Heart className="w-4 h-4 text-gray-700" />
                   </button>
-                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                    <Eye className="w-5 h-5 text-gray-700" />
+                  <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                    <Eye className="w-4 h-4 text-gray-700" />
                   </button>
                 </div>
 
                 {/* Status Badge */}
-                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold ${
+                <div className={`absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-semibold ${
                   car.status === 'Доступен' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-black'
                 }`}>
                   {car.status}
                 </div>
 
                 {/* Price Badge */}
-                <div className="absolute bottom-4 left-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-lg">
+                <div className="absolute bottom-2 left-2 bg-yellow-500 text-black px-2 py-1 rounded-full font-bold text-sm">
                   {car.price}
                 </div>
               </div>
 
               {/* Car Details */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
                     {car.name}
                   </h3>
                   <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm font-semibold text-gray-700">{car.rating}</span>
+                    <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                    <span className="text-xs font-semibold text-gray-700">{car.rating}</span>
                   </div>
                 </div>
 
-                <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div className="space-y-1 text-xs text-gray-600 mb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Calendar className="w-4 h-4 text-blue-500" />
@@ -151,12 +151,12 @@ const PopularCarsSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="flex items-center space-x-1 text-sm text-gray-500">
-                    <Eye className="w-4 h-4" />
+                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                  <div className="flex items-center space-x-1 text-xs text-gray-500">
+                    <Eye className="w-3 h-3" />
                     <span>{car.views}</span>
                   </div>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
                     Подробнее
                   </button>
                 </div>

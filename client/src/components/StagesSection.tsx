@@ -52,26 +52,26 @@ const StagesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-in slide-in-from-bottom duration-1000">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10 animate-in slide-in-from-bottom duration-1000">
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
             Этапы сотрудничества с NFS AUTO
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Пошаговый процесс покупки автомобиля из-за рубежа с полным сопровождением
           </p>
         </div>
 
         {/* Main Stages */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
           {stages.map((stage, index) => (
             <div
               key={stage.id}
-              className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
+              className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1 border border-gray-100"
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-32 sm:h-40 overflow-hidden">
                 <img
                   src={stage.image}
                   alt={stage.title}
@@ -80,25 +80,25 @@ const StagesSection: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 
                 {/* Step Number */}
-                <div className="absolute top-4 left-4 w-12 h-12 bg-yellow-500 text-black rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                <div className="absolute top-3 left-3 w-8 h-8 sm:w-10 sm:h-10 bg-yellow-500 text-black rounded-full flex items-center justify-center font-bold text-sm sm:text-base shadow-lg">
                   {stage.id}
                 </div>
 
                 {/* Arrow for flow */}
                 {index < stages.length - 1 && (
-                  <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 z-20">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                      <ArrowRight className="w-4 h-4 text-white" />
+                  <div className="hidden lg:block absolute -right-3 top-1/2 transform -translate-y-1/2 z-20">
+                    <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                      <ArrowRight className="w-3 h-3 text-white" />
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+              <div className="p-4 sm:p-5">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {stage.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+                <p className="text-gray-600 leading-relaxed mb-2 text-sm line-clamp-3">
                   {stage.description}
                 </p>
                 <p className="text-blue-600 text-xs font-semibold">
@@ -110,18 +110,18 @@ const StagesSection: React.FC = () => {
         </div>
 
         {/* Additional Services */}
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-6">
+          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-6 text-center">
             Дополнительные услуги
           </h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {additionalStages.map((stage, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1"
+                className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
                 style={{ animationDelay: `${(index + 4) * 200}ms` }}
               >
-                <div className="relative h-32 overflow-hidden">
+                <div className="relative h-28 overflow-hidden">
                   <img
                     src={stage.image}
                     alt={stage.title}
@@ -131,10 +131,10 @@ const StagesSection: React.FC = () => {
                 </div>
 
                 <div className="p-4">
-                  <h4 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h4 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                     {stage.title}
                   </h4>
-                  <p className="text-gray-600 leading-relaxed text-sm">
+                  <p className="text-gray-600 leading-relaxed text-sm line-clamp-2">
                     {stage.description}
                   </p>
                 </div>

@@ -54,13 +54,13 @@ const Header: React.FC = () => {
       isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Car className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Car className="w-5 h-5 text-white" />
             </div>
-            <span className={`text-2xl font-bold transition-colors ${
+            <span className={`text-xl font-bold transition-colors ${
               isScrolled ? 'text-gray-900' : 'text-white'
             }`}>
               NFS Auto
