@@ -28,6 +28,8 @@ This is a full-stack React + Express application for a car import service called
 - Integrated PostgreSQL database with comprehensive schema
 - Added API routes for cars, inquiries, users, and services
 - Seeded database with sample car and service data
+- Significantly reduced vertical padding/margins across all components for compact design
+- Optimized hero section height from full screen to 70vh for better user experience
 
 ## User Preferences
 - Language: Russian content (car import service targeting Russian market)

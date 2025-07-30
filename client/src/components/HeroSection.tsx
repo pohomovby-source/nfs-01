@@ -7,7 +7,7 @@ const HeroSection: React.FC = () => {
   const [priceMax, setPriceMax] = useState('');
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 overflow-hidden">
+    <section className="relative min-h-[70vh] bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 overflow-hidden">
       {/* Background with overlay */}
       <div className="absolute inset-0">
         <img
@@ -18,11 +18,11 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-blue-900/80 to-indigo-900/90"></div>
       </div>
 
-      <div className="container mx-auto px-4 pt-20 pb-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-5rem)]">
+      <div className="container mx-auto px-4 pt-16 pb-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(70vh-3rem)]">
           {/* Left Content */}
-          <div className="text-white space-y-6 animate-in slide-in-from-left duration-1000">
-            <div className="space-y-4">
+          <div className="text-white space-y-4 animate-in slide-in-from-left duration-1000">
+            <div className="space-y-3">
               <div className="inline-block bg-yellow-500 text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide">
                 ИДЕАЛЬНЫЙ АВТОМОБИЛЬ — ОТ ПОИСКА ДО ДОСТАВКИ!
               </div>

@@ -58,9 +58,9 @@ const PopularCarsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-8 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10 animate-in slide-in-from-bottom duration-1000">
+        <div className="text-center mb-6 animate-in slide-in-from-bottom duration-1000">
           <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
             Популярные лоты
           </h2>

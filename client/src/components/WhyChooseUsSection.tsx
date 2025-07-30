@@ -41,9 +41,9 @@ const WhyChooseUsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-8 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-in slide-in-from-bottom duration-1000">
+        <div className="text-center mb-6 animate-in slide-in-from-bottom duration-1000">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Почему нам доверяются
           </h2>

@@ -38,9 +38,9 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-in slide-in-from-bottom duration-1000">
+        <div className="text-center mb-8 animate-in slide-in-from-bottom duration-1000">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Наши услуги
           </h2>
