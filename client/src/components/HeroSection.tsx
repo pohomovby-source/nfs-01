@@ -42,7 +42,8 @@ const HeroSection: React.FC = () => {
               </h1>
               
               <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-                Полный цикл услуг для покупки автомобиля из-за рубежа. 
+                Полный цикл услуг для покупки автомобилей из <span className="text-yellow-400 font-semibold">США, Кореи, Китая и Европы</span>. 
+                Доставляем как <span className="text-yellow-400 font-semibold">новые, так и подержанные</span> автомобили. 
                 Честно, прозрачно, профессионально.
               </p>
             </div>
@@ -108,6 +109,19 @@ const HeroSection: React.FC = () => {
                 <div className="text-center">
                   <div className="text-lg font-bold">от $25,000</div>
                   <div className="text-xs">Лучшие цены</div>
+                </div>
+              </div>
+
+              {/* Country Flags */}
+              <div className="absolute -bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl z-20">
+                <div className="flex items-center space-x-2">
+                  <div className="text-xs font-semibold text-gray-900 mb-1">Доставляем из:</div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-lg">🇺🇸</span>
+                  <span className="text-lg">🇰🇷</span>
+                  <span className="text-lg">🇨🇳</span>
+                  <span className="text-lg">🇪🇺</span>
                 </div>
               </div>
             </div>
