@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, MapPin, Calendar, Fuel, Settings, Palette, Phone, Heart, Share2, ChevronDown } from 'lucide-react';
+import { Link } from 'wouter';
 
 interface Car {
   id: number;
@@ -101,9 +102,9 @@ const CarCard: React.FC<CarCardProps> = ({ car, viewMode }) => {
                 {car.location}
               </div>
               <div className="flex gap-2">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <Link href={`/car/${car.id}`} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                   Подробнее
-                </button>
+                </Link>
                 <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
                   Связаться
                 </button>
@@ -248,9 +249,12 @@ const CarCard: React.FC<CarCardProps> = ({ car, viewMode }) => {
           </div>
 
           <div className="flex gap-3">
-            <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <Link 
+              href={`/car/${car.id}`}
+              className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+            >
               Подробнее
-            </button>
+            </Link>
             <button className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 font-semibold">
               <Phone className="w-4 h-4" />
               <span className="hidden sm:block">Позвонить</span>

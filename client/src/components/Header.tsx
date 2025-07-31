@@ -351,7 +351,7 @@ const Header: React.FC = () => {
                         
                         <div className="grid grid-cols-1 gap-4">
                           {popularCars.slice(0, 2).map((car) => (
-                            <div key={car.id} className="group cursor-pointer">
+                            <Link key={car.id} href={`/car/${car.id}`} className="group cursor-pointer block">
                               <div className="bg-gray-100 rounded-lg overflow-hidden mb-3 relative">
                                 {car.imageUrl ? (
                                   <img 
@@ -379,7 +379,7 @@ const Header: React.FC = () => {
                                   ${parseFloat(car.price).toLocaleString()}
                                 </p>
                               </div>
-                            </div>
+                            </Link>
                           ))}
                         </div>
                         

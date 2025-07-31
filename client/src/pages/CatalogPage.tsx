@@ -490,9 +490,10 @@ const CatalogPage = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {popularCars.map((car, index) => (
-                  <div 
+                  <Link
                     key={car.id}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    href={`/car/${car.id}`}
+                    className="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                     style={{ animationDelay: `${index * 150}ms` }}
                   >
                     <div className="relative">
@@ -512,7 +513,7 @@ const CatalogPage = () => {
                         {parseFloat(car.price).toLocaleString('ru-RU')} {car.currency}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
