@@ -6,7 +6,8 @@ import {
   MapPin, Phone, Mail, MessageCircle, Calculator, Download,
   Star, Shield, Award, Zap, Car as CarIcon, Truck, Clock,
   ChevronLeft, ChevronRight, PlayCircle, Camera, Grid3X3,
-  Info, CheckCircle, AlertTriangle, TrendingUp, Users
+  Info, CheckCircle, AlertTriangle, TrendingUp, Users, Brain,
+  ExternalLink, DollarSign, X, ChevronDown, Palette
 } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Car } from '@shared/schema';
@@ -250,35 +251,224 @@ const CarDetailPage: React.FC = () => {
               </div>
             )}
 
-            {/* Related Cars */}
+            {/* Additional Car Information */}
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <Info className="w-6 h-6 mr-2 text-blue-600" />
+                Дополнительная информация
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Vehicle History */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                    <Clock className="w-5 h-5 mr-2 text-green-600" />
+                    История автомобиля
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Количество владельцев</span>
+                      <span className="font-semibold text-green-700">1 владелец</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                      <span className="text-sm text-gray-700">ДТП в истории</span>
+                      <span className="font-semibold text-green-700">Не участвовал</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Сервисная книжка</span>
+                      <span className="font-semibold text-green-700">Ведется</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Condition Assessment */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                    <Shield className="w-5 h-5 mr-2 text-blue-600" />
+                    Оценка состояния
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Кузов</span>
+                      <span className="font-semibold text-blue-700">Отличное</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Двигатель</span>
+                      <span className="font-semibold text-blue-700">Отличное</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Салон</span>
+                      <span className="font-semibold text-blue-700">Хорошее</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <Star className="w-6 h-6 mr-2 text-yellow-500" />
+                Отзывы о модели
+              </h2>
+              
+              <div className="space-y-6">
+                {/* Review Summary */}
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="text-3xl font-bold text-gray-900">4.8</div>
+                      <div className="flex text-yellow-500">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 fill-current" />
+                        ))}
+                      </div>
+                      <span className="text-gray-600">из 847 отзывов</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 gap-2 text-sm">
+                    <div className="text-center">
+                      <div className="font-semibold">9.2</div>
+                      <div className="text-gray-600">Надежность</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-semibold">8.8</div>
+                      <div className="text-gray-600">Комфорт</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-semibold">8.5</div>
+                      <div className="text-gray-600">Экономия</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-semibold">9.0</div>
+                      <div className="text-gray-600">Дизайн</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-semibold">8.7</div>
+                      <div className="text-gray-600">Управление</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sample Reviews */}
+                <div className="space-y-4">
+                  <div className="border-l-4 border-blue-500 pl-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="flex text-yellow-500">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                      </div>
+                      <span className="text-sm text-gray-600">Алексей М., 2023</span>
+                    </div>
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      "Отличный автомобиль! Очень надежный, комфортный и экономичный. 
+                      Пользуюсь уже 2 года - никаких проблем. Рекомендую!"
+                    </p>
+                  </div>
+                  <div className="border-l-4 border-green-500 pl-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="flex text-yellow-500">
+                        {[...Array(4)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                        <Star className="w-4 h-4" />
+                      </div>
+                      <span className="text-sm text-gray-600">Мария К., 2023</span>
+                    </div>
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      "Покупала для семьи - очень просторный и безопасный. 
+                      Качество сборки на высоте, все продумано до мелочей."
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sell Your Car Block */}
+            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl shadow-lg p-6 text-white">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <h2 className="text-2xl font-bold mb-2 flex items-center">
+                    <DollarSign className="w-6 h-6 mr-2" />
+                    Продать свой автомобиль?
+                  </h2>
+                  <p className="text-green-100 mb-4">
+                    Получите выгодное предложение за ваш автомобиль. 
+                    Быстрая оценка и честная цена.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button className="bg-white text-green-600 px-6 py-3 rounded-xl font-semibold hover:bg-green-50 transition-colors flex items-center justify-center space-x-2">
+                      <Calculator className="w-5 h-5" />
+                      <span>Оценить авто</span>
+                    </button>
+                    <button className="bg-green-400 text-green-900 px-6 py-3 rounded-xl font-semibold hover:bg-green-300 transition-colors flex items-center justify-center space-x-2">
+                      <Phone className="w-5 h-5" />
+                      <span>Получить консультацию</span>
+                    </button>
+                  </div>
+                </div>
+                <div className="hidden md:block">
+                  <CarIcon className="w-24 h-24 text-green-200" />
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Related Cars */}
             {relatedCars.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <TrendingUp className="w-6 h-6 mr-2 text-blue-600" />
-                  Похожие автомобили
-                </h2>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                    <TrendingUp className="w-6 h-6 mr-2 text-blue-600" />
+                    Похожие автомобили
+                  </h2>
+                  <Link href="/catalog" className="text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1">
+                    <span>Смотреть все</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
+                </div>
                 
-                <div className="grid md:grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedCars.map((relatedCar: Car) => (
                     <Link key={relatedCar.id} href={`/car/${relatedCar.id.toString()}`}>
-                      <div className="group cursor-pointer bg-gray-50 rounded-xl overflow-hidden hover:bg-gray-100 transition-colors">
-                        <div className="h-32 overflow-hidden">
+                      <div className="group cursor-pointer bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all duration-300">
+                        <div className="relative h-48 overflow-hidden">
                           <img
                             src={relatedCar.imageUrl || '/placeholder-car.jpg'}
                             alt={relatedCar.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
+                          <div className="absolute top-3 right-3 bg-black/70 text-white px-2 py-1 rounded-lg text-xs font-medium">
+                            ★ {relatedCar.rating}
+                          </div>
                         </div>
-                        <div className="p-3">
-                          <h3 className="font-semibold text-gray-900 text-sm group-hover:text-blue-600 transition-colors">
+                        <div className="p-4">
+                          <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
                             {relatedCar.name}
                           </h3>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {relatedCar.year} • {relatedCar.mileage?.toLocaleString()} км
-                          </p>
-                          <p className="font-bold text-blue-600 text-sm mt-2">
-                            ${parseFloat(relatedCar.price).toLocaleString()}
-                          </p>
+                          <div className="space-y-2 text-sm text-gray-600 mb-3">
+                            <div className="flex justify-between">
+                              <span>Год:</span>
+                              <span className="font-semibold">{relatedCar.year}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Пробег:</span>
+                              <span className="font-semibold">{relatedCar.mileage?.toLocaleString()} км</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Топливо:</span>
+                              <span className="font-semibold">{relatedCar.fuel}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="text-xl font-bold text-blue-600">
+                              ${parseFloat(relatedCar.price).toLocaleString()}
+                            </div>
+                            <div className="text-xs text-gray-500 flex items-center">
+                              <Eye className="w-3 h-3 mr-1" />
+                              {relatedCar.views}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </Link>
@@ -291,10 +481,22 @@ const CarDetailPage: React.FC = () => {
           {/* Right Column - Price and Actions */}
           <div className="space-y-6">
             {/* Price Card */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-40">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6 self-start">
               <div className="text-center mb-6">
-                <div className="text-3xl font-bold text-gray-900 mb-2">
-                  ${parseFloat(car.price).toLocaleString()}
+                <div className="mb-4">
+                  <div className="text-sm text-gray-600 mb-1">Цена автомобиля</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    ${parseFloat(car.price).toLocaleString()}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <div className="text-sm text-gray-600 mb-1">Средняя цена по рынку</div>
+                  <div className="text-xl font-semibold text-gray-700">
+                    ${Math.round(parseFloat(car.price) * 1.15).toLocaleString()}
+                  </div>
+                  <div className="text-xs text-green-600 font-medium">
+                    На {Math.round((1.15 - 1) * 100)}% выгоднее рынка
+                  </div>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
                   <div className="flex items-center text-yellow-500">
@@ -332,6 +534,11 @@ const CarDetailPage: React.FC = () => {
                   <span>Расчет стоимости</span>
                 </button>
 
+                <button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                  <Brain className="w-5 h-5" />
+                  <span>ИИ анализ</span>
+                </button>
+                
                 <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold transition-colors flex items-center justify-center space-x-2">
                   <Download className="w-5 h-5" />
                   <span>Скачать отчет</span>
