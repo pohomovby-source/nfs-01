@@ -19,6 +19,14 @@ This is a full-stack React + Express application for a car import service called
 - Frontend contains multiple sections: Header, Hero, Services, Stages, Popular Cars, etc.
 
 ## Recent Changes
+- 2025-01-31: Enhanced catalog with clickable cards and improved engagement elements:
+  * **Fixed Critical Bug**: Resolved "Link is not defined" error in CatalogPage component
+  * **Clickable Car Cards**: All car cards throughout application now link to detailed car pages (/car/:id)
+  * **Popular Cars Gallery**: Updated to display 4 cars in responsive grid layout (1-2-4 columns based on screen size)
+  * **Redesigned Car Cards**: Compact layout with key specifications, ratings, and action buttons matching reference design
+  * **Enhanced Animations**: Improved hover effects, transitions, and visual feedback
+  * **Call-to-Action Elements**: Added compelling sections to encourage customer contact with statistics and consultation offers
+  * **Interactive Info Blocks**: Enhanced service blocks with hover effects and action buttons
 - 2025-01-31: Mega menu enhanced with popular cars section:
   * **Popular Cars API**: Added new endpoint `/api/cars/popular` to fetch top-rated and most viewed cars
   * **Mega Menu Layout**: Expanded catalog mega menu to 6-column grid with dedicated popular cars section

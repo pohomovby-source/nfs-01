@@ -506,100 +506,92 @@ const CatalogPage = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-                {popularCars.slice(0, 2).map((car, index) => (
-                  <div
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                {popularCars.slice(0, 4).map((car, index) => (
+                  <Link
                     key={car.id}
-                    className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
-                    style={{ animationDelay: `${index * 200}ms` }}
+                    href={`/car/${car.id}`}
+                    className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden"
+                    style={{ animationDelay: `${index * 150}ms` }}
                   >
-                    <div className="relative overflow-hidden">
+                    {/* Image Section */}
+                    <div className="relative">
                       <img
                         src={car.imageUrl}
                         alt={car.name}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       
-                      {/* Overlay with gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
-                      {/* Action buttons */}
-                      <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-red-500 hover:bg-white transition-all duration-300 transform hover:scale-110">
-                          <Heart className="w-4 h-4" />
-                        </button>
-                        <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-blue-500 hover:bg-white transition-all duration-300 transform hover:scale-110">
-                          <Share2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                      
-                      {/* Rating badge */}
-                      <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                      {/* Badges */}
+                      <div className="absolute top-2 left-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-2 py-1 rounded-md text-xs font-bold flex items-center gap-1">
                         <Star className="w-3 h-3 fill-current" />
                         {car.rating}
                       </div>
                       
-                      {/* Status badge */}
-                      <div className="absolute bottom-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
-                        🔥 Хит продаж
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex-1">
-                          <h3 className="font-bold text-xl text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                            {car.name}
-                          </h3>
-                          <p className="text-gray-600 text-sm font-medium mb-3">{car.brand} {car.model} • {car.year} год</p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            {parseFloat(car.price).toLocaleString('ru-RU')} {car.currency}
-                          </div>
-                          <div className="text-xs text-gray-500 mt-1">≈ {Math.round(parseFloat(car.price) * 0.95).toLocaleString('ru-RU')} ₽</div>
-                        </div>
-                      </div>
-                      
-                      {/* Key characteristics */}
-                      <div className="grid grid-cols-2 gap-3 mb-4">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Calendar className="w-4 h-4 text-blue-500" />
-                          <span className="text-gray-600">Год:</span>
-                          <span className="font-semibold">{car.year}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Settings className="w-4 h-4 text-blue-500" />
-                          <span className="text-gray-600">Пробег:</span>
-                          <span className="font-semibold">{car.mileage?.toLocaleString()} км</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Fuel className="w-4 h-4 text-blue-500" />
-                          <span className="text-gray-600">Топливо:</span>
-                          <span className="font-semibold">{car.fuel}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Eye className="w-4 h-4 text-blue-500" />
-                          <span className="text-gray-600">Просмотры:</span>
-                          <span className="font-semibold">{car.views}</span>
-                        </div>
-                      </div>
-                      
                       {/* Action buttons */}
-                      <div className="flex gap-3">
-                        <Link 
-                          href={`/car/${car.id}`}
-                          className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                      <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button 
+                          onClick={(e) => {e.preventDefault(); e.stopPropagation();}}
+                          className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors duration-300"
                         >
-                          Подробнее
-                        </Link>
-                        <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-                          <Phone className="w-4 h-4" />
-                          Звонок
+                          <Heart className="w-3 h-3" />
+                        </button>
+                        <button 
+                          onClick={(e) => {e.preventDefault(); e.stopPropagation();}}
+                          className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-blue-500 transition-colors duration-300"
+                        >
+                          <Share2 className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
-                  </div>
+                    
+                    {/* Content Section */}
+                    <div className="p-4">
+                      {/* Title and Price */}
+                      <div className="mb-3">
+                        <h3 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
+                          {car.name}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-2">{car.brand} {car.model}</p>
+                        <div className="text-xl font-bold text-blue-600">
+                          {parseFloat(car.price).toLocaleString('ru-RU')} {car.currency}
+                        </div>
+                      </div>
+                      
+                      {/* Key specs */}
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Год выпуска:</span>
+                          <span className="font-semibold">{car.year}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Пробег:</span>
+                          <span className="font-semibold">{car.mileage?.toLocaleString()} км</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Топливо:</span>
+                          <span className="font-semibold">{car.fuel}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">КПП:</span>
+                          <span className="font-semibold">{car.transmission}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Status */}
+                      <div className="mt-3 pt-3 border-t border-gray-100">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1 text-xs text-gray-500">
+                            <Eye className="w-3 h-3" />
+                            <span>{car.views} просмотров</span>
+                          </div>
+                          <div className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                            В наличии
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 ))}
               </div>
               
