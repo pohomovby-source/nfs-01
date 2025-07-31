@@ -19,6 +19,12 @@ This is a full-stack React + Express application for a car import service called
 - Frontend contains multiple sections: Header, Hero, Services, Stages, Popular Cars, etc.
 
 ## Recent Changes
+- 2025-01-31: Mega menu enhanced with popular cars section:
+  * **Popular Cars API**: Added new endpoint `/api/cars/popular` to fetch top-rated and most viewed cars
+  * **Mega Menu Layout**: Expanded catalog mega menu to 6-column grid with dedicated popular cars section
+  * **Visual Enhancement**: Added car images, ratings, prices, and hover effects in mega menu
+  * **Real-time Data**: Popular cars section displays actual data from database with dynamic loading
+  * **Responsive Design**: Optimized layout for better visual hierarchy and user experience
 - 2025-01-31: Latest comprehensive website improvements completed:
   * **AI & Personal Cabinet**: Updated messaging to present AI automation and personal cabinet as existing features, not future ones
   * **Mega Menu**: Added catalog dropdown with popular products display on hover in header navigation

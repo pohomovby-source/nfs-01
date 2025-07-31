@@ -43,6 +43,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/cars/popular", async (req, res) => {
+    try {
+      const cars = await storage.getPopularCars();
+      res.json({ cars });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch popular cars" });
+    }
+  });
+
   app.get("/api/cars/brand/:brand", async (req, res) => {
     try {
       const brand = req.params.brand;

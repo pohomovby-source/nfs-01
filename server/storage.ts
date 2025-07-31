@@ -13,6 +13,7 @@ export interface IStorage {
   getCar(id: number): Promise<Car | undefined>;
   getAllCars(): Promise<Car[]>;
   getCarsByBrand(brand: string): Promise<Car[]>;
+  getPopularCars(): Promise<Car[]>;
   searchCars(query: string): Promise<Car[]>;
   createCar(car: InsertCar): Promise<Car>;
   updateCarViews(id: number): Promise<void>;
@@ -66,6 +67,12 @@ export class DatabaseStorage implements IStorage {
 
   async getCarsByBrand(brand: string): Promise<Car[]> {
     return await db.select().from(cars).where(eq(cars.brand, brand));
+  }
+
+  async getPopularCars(): Promise<Car[]> {
+    return await db.select().from(cars)
+      .orderBy(desc(cars.views), desc(cars.rating))
+      .limit(6);
   }
 
   async searchCars(query: string): Promise<Car[]> {

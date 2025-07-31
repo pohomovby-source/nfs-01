@@ -5,12 +5,14 @@ import {
   Grid3X3, Info, Package, MapPin, Mail, Clock, Heart, Star,
   FileText, HelpCircle, MessageCircle, Shield, Award, Zap
 } from 'lucide-react';
+import type { Car } from '@shared/schema';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [popularCars, setPopularCars] = useState<Car[]>([]);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (menuId: string) => {
@@ -32,6 +34,21 @@ const Header: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Fetch popular cars for mega menu
+    const fetchPopularCars = async () => {
+      try {
+        const response = await fetch('/api/cars/popular');
+        if (response.ok) {
+          const data = await response.json();
+          setPopularCars(data.cars);
+        }
+      } catch (error) {
+        console.error('Error fetching popular cars:', error);
+      }
+    };
+
+    fetchPopularCars();
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -285,9 +302,10 @@ const Header: React.FC = () => {
 
               {/* Enhanced Catalog Mega Menu */}
               {activeDropdown === 'catalog' && (
-                <div className="absolute top-full left-0 w-screen max-w-6xl bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2 overflow-hidden">
+                <div className="absolute top-full left-0 w-screen max-w-7xl bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2 overflow-hidden">
                   <div className="p-8">
-                    <div className="grid grid-cols-5 gap-8">
+                    <div className="grid grid-cols-6 gap-8">
+                      {/* Brand Categories - 4 columns */}
                       {catalogMenuItems.map((column, index) => (
                         <div key={index} className="space-y-4">
                           <div className="flex items-center space-x-2 mb-4">
@@ -319,7 +337,63 @@ const Header: React.FC = () => {
                           </ul>
                         </div>
                       ))}
+                      
+                      {/* Popular Cars Section - 2 columns */}
+                      <div className="col-span-2 border-l border-gray-200 pl-8">
+                        <div className="flex items-center space-x-2 mb-6">
+                          <div className="p-2 bg-yellow-100 rounded-lg text-yellow-600">
+                            <Star className="w-4 h-4" />
+                          </div>
+                          <h3 className="font-bold text-gray-900 text-sm">
+                            Популярные лоты
+                          </h3>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                          {popularCars.slice(0, 4).map((car) => (
+                            <div key={car.id} className="group cursor-pointer">
+                              <div className="bg-gray-100 rounded-lg overflow-hidden mb-3 relative">
+                                {car.imageUrl ? (
+                                  <img 
+                                    src={car.imageUrl} 
+                                    alt={car.name}
+                                    className="w-full h-24 object-cover group-hover:scale-105 transition-transform duration-300"
+                                  />
+                                ) : (
+                                  <div className="w-full h-24 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                                    <Car className="w-8 h-8 text-gray-400" />
+                                  </div>
+                                )}
+                                <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                                  ★ {car.rating}
+                                </div>
+                              </div>
+                              <div className="space-y-1">
+                                <h4 className="font-semibold text-gray-900 text-sm group-hover:text-blue-600 transition-colors">
+                                  {car.name}
+                                </h4>
+                                <p className="text-xs text-gray-500">
+                                  {car.year} • {car.mileage?.toLocaleString()} км
+                                </p>
+                                <p className="font-bold text-blue-600 text-sm">
+                                  ${parseFloat(car.price).toLocaleString()}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className="mt-6 pt-4 border-t border-gray-100">
+                          <Link
+                            href="/catalog"
+                            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2.5 rounded-lg font-semibold transition-all duration-300 text-center block text-sm"
+                          >
+                            Смотреть все лоты
+                          </Link>
+                        </div>
+                      </div>
                     </div>
+                    
                     <div className="mt-6 pt-6 border-t border-gray-100 text-center">
                       <Link
                         href="/catalog"
