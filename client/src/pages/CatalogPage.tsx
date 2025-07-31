@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useLocation } from 'wouter';
-import { ChevronDown, Filter, Grid, List, Search, X, SlidersHorizontal, Car } from 'lucide-react';
+import { ChevronDown, Filter, Grid, List, Search, X, SlidersHorizontal, Car, Settings, Phone } from 'lucide-react';
 import CarCard from '../components/CarCard';
 import FilterSidebar from '../components/FilterSidebar';
 
@@ -32,6 +32,7 @@ const CatalogPage = () => {
   const [location] = useLocation();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [displayedCars, setDisplayedCars] = useState(6);
   const [filters, setFilters] = useState({
     brand: '',
     priceFrom: '',
@@ -43,6 +44,18 @@ const CatalogPage = () => {
     bodyType: '',
     search: ''
   });
+
+  // Popular tags for quick filtering
+  const popularTags = [
+    { label: 'Новые (2020+)', filter: { yearFrom: '2020' } },
+    { label: 'До $20,000', filter: { priceTo: '20000' } },
+    { label: 'BMW', filter: { brand: 'BMW' } },
+    { label: 'Mercedes-Benz', filter: { brand: 'Mercedes-Benz' } },
+    { label: 'Автомат', filter: { transmission: 'Автомат' } },
+    { label: 'Седан', filter: { bodyType: 'Седан' } },
+    { label: 'Внедорожник', filter: { bodyType: 'Внедорожник' } },
+    { label: 'Бензин', filter: { fuel: 'Бензин' } },
+  ];
 
   const { data: carsData, isLoading } = useQuery({
     queryKey: ['/api/cars'],
@@ -72,11 +85,31 @@ const CatalogPage = () => {
      params.category.charAt(0).toUpperCase() + params.category.slice(1)) : 
     'Каталог автомобилей';
 
+  // Get popular cars (top rated)
+  const popularCars = cars
+    .filter(car => parseFloat(car.rating) >= 4.5)
+    .slice(0, 4);
+
+  const handleTagClick = (tagFilter: any) => {
+    setFilters(prev => ({ ...prev, ...tagFilter }));
+  };
+
+  const loadMoreCars = () => {
+    setDisplayedCars(prev => prev + 6);
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      brand: '', priceFrom: '', priceTo: '', yearFrom: '', yearTo: '', 
+      fuel: '', transmission: '', bodyType: '', search: ''
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Hero Section with Breadcrumb */}
       <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <div className="py-4 border-b border-blue-500/20">
             <nav className="text-sm text-blue-100">
@@ -115,7 +148,29 @@ const CatalogPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
+        {/* Popular Tags */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Популярные фильтры</h2>
+          <div className="flex flex-wrap gap-3">
+            {popularTags.map((tag, index) => (
+              <button
+                key={index}
+                onClick={() => handleTagClick(tag.filter)}
+                className="px-4 py-2 bg-white border border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 text-sm font-medium text-gray-700 hover:text-blue-600"
+              >
+                {tag.label}
+              </button>
+            ))}
+            <button
+              onClick={resetFilters}
+              className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-xl hover:bg-gray-200 transition-all duration-300 text-sm font-medium text-gray-600"
+            >
+              Сбросить все
+            </button>
+          </div>
+        </div>
+
         {/* Controls Bar */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
@@ -243,25 +298,118 @@ const CatalogPage = () => {
                 </button>
               </div>
             ) : (
-              <div className={`grid gap-6 transition-all duration-300 ${
-                isFilterOpen 
-                  ? (viewMode === 'grid' ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1') 
-                  : (viewMode === 'grid' ? 'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1')
-              }`}>
-                {filteredCars.map((car: Car, index) => (
+              <>
+                <div className={`grid gap-6 transition-all duration-300 mb-8 ${
+                  isFilterOpen 
+                    ? (viewMode === 'grid' ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1') 
+                    : (viewMode === 'grid' ? 'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1')
+                }`}>
+                  {filteredCars.slice(0, displayedCars).map((car: Car, index) => (
+                    <div 
+                      key={car.id}
+                      className="animate-in"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <CarCard 
+                        car={car} 
+                        viewMode={viewMode}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Load More Button */}
+                {displayedCars < filteredCars.length && (
+                  <div className="text-center">
+                    <button
+                      onClick={loadMoreCars}
+                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                      Показать еще ({filteredCars.length - displayedCars} автомобилей)
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Popular Cars Section */}
+        {popularCars.length > 0 && (
+          <div className="mt-16 mb-12">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Популярные автомобили</h2>
+                <p className="text-gray-600 text-lg">Самые востребованные модели с высоким рейтингом</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {popularCars.map((car, index) => (
                   <div 
                     key={car.id}
-                    className="animate-in"
-                    style={{ animationDelay: `${index * 100}ms` }}
+                    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    style={{ animationDelay: `${index * 150}ms` }}
                   >
-                    <CarCard 
-                      car={car} 
-                      viewMode={viewMode}
-                    />
+                    <div className="relative">
+                      <img
+                        src={car.imageUrl}
+                        alt={car.name}
+                        className="w-full h-40 object-cover"
+                      />
+                      <div className="absolute top-3 right-3 bg-yellow-400 text-black px-2 py-1 rounded-lg text-xs font-bold">
+                        ⭐ {car.rating}
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-1">{car.name}</h3>
+                      <p className="text-gray-600 text-sm mb-3">{car.brand} {car.model} • {car.year}</p>
+                      <div className="text-xl font-bold text-blue-600">
+                        {parseFloat(car.price).toLocaleString('ru-RU')} {car.currency}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
-            )}
+            </div>
+          </div>
+        )}
+
+        {/* Info Blocks */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Delivery Info */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+              <Car className="w-6 h-6 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Доставка из США</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Прямые поставки автомобилей из США с полным сопровождением сделки. 
+              Срок доставки от 21 дня.
+            </p>
+          </div>
+
+          {/* Warranty Info */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+              <Settings className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Гарантия качества</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Все автомобили проходят тщательную проверку. 
+              Предоставляем гарантию на техническое состояние.
+            </p>
+          </div>
+
+          {/* Support Info */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
+              <Phone className="w-6 h-6 text-yellow-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Поддержка 24/7</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Наши специалисты готовы ответить на любые вопросы 
+              и помочь с выбором автомобиля.
+            </p>
           </div>
         </div>
       </div>
