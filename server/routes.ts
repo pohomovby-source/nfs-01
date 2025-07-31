@@ -15,6 +15,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Popular cars route - must come before the generic :id route
+  app.get("/api/cars/popular", async (req, res) => {
+    try {
+      const cars = await storage.getPopularCars();
+      res.json({ cars });
+    } catch (error) {
+      console.error("Popular cars error:", error);
+      res.status(500).json({ error: "Failed to fetch popular cars" });
+    }
+  });
+
+  app.get("/api/cars/search/:query", async (req, res) => {
+    try {
+      const query = req.params.query;
+      const cars = await storage.searchCars(query);
+      res.json({ cars });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to search cars" });
+    }
+  });
+
+  app.get("/api/cars/brand/:brand", async (req, res) => {
+    try {
+      const brand = req.params.brand;
+      const cars = await storage.getCarsByBrand(brand);
+      res.json({ cars });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch cars by brand" });
+    }
+  });
+
   app.get("/api/cars/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -30,35 +61,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ car });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch car" });
-    }
-  });
-
-  app.get("/api/cars/search/:query", async (req, res) => {
-    try {
-      const query = req.params.query;
-      const cars = await storage.searchCars(query);
-      res.json({ cars });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to search cars" });
-    }
-  });
-
-  app.get("/api/cars/popular", async (req, res) => {
-    try {
-      const cars = await storage.getPopularCars();
-      res.json({ cars });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch popular cars" });
-    }
-  });
-
-  app.get("/api/cars/brand/:brand", async (req, res) => {
-    try {
-      const brand = req.params.brand;
-      const cars = await storage.getCarsByBrand(brand);
-      res.json({ cars });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch cars by brand" });
     }
   });
 

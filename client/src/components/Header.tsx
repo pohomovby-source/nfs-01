@@ -349,8 +349,8 @@ const Header: React.FC = () => {
                           </h3>
                         </div>
                         
-                        <div className="grid grid-cols-2 gap-4">
-                          {popularCars.slice(0, 4).map((car) => (
+                        <div className="grid grid-cols-1 gap-4">
+                          {popularCars.slice(0, 2).map((car) => (
                             <div key={car.id} className="group cursor-pointer">
                               <div className="bg-gray-100 rounded-lg overflow-hidden mb-3 relative">
                                 {car.imageUrl ? (
