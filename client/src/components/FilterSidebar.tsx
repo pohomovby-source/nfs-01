@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ChevronDown } from 'lucide-react';
+import { X, ChevronDown, SlidersHorizontal } from 'lucide-react';
 
 interface Car {
   id: number;
@@ -66,12 +66,15 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
   const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 h-fit sticky top-6">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 h-fit sticky top-6 slide-filter">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Фильтры</h3>
+        <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <SlidersHorizontal className="w-5 h-5 text-blue-600" />
+          Фильтры
+        </h3>
         <button
           onClick={clearFilters}
-          className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+          className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-all duration-300"
         >
           <X className="w-4 h-4" />
           Очистить
@@ -80,16 +83,16 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
 
       <div className="space-y-6">
         {/* Brand */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Марка
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
+            Марка автомобиля
           </label>
           <select
             value={filters.brand}
             onChange={(e) => setFilters(prev => ({ ...prev, brand: e.target.value }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
           >
-            <option value="">Любая</option>
+            <option value="">Любая марка</option>
             {brands.map(brand => (
               <option key={brand} value={brand}>{brand}</option>
             ))}
@@ -97,40 +100,40 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
         </div>
 
         {/* Price Range */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Цена, USD
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-3">
             <input
               type="number"
               placeholder="От"
               value={filters.priceFrom}
               onChange={(e) => setFilters(prev => ({ ...prev, priceFrom: e.target.value }))}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
             />
             <input
               type="number"
               placeholder="До"
               value={filters.priceTo}
               onChange={(e) => setFilters(prev => ({ ...prev, priceTo: e.target.value }))}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
             />
           </div>
         </div>
 
         {/* Year Range */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Год выпуска
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-3">
             <select
               value={filters.yearFrom}
               onChange={(e) => setFilters(prev => ({ ...prev, yearFrom: e.target.value }))}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
             >
-              <option value="">От</option>
+              <option value="">От года</option>
               {years.map(year => (
                 <option key={year} value={year}>{year}</option>
               ))}
@@ -138,9 +141,9 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
             <select
               value={filters.yearTo}
               onChange={(e) => setFilters(prev => ({ ...prev, yearTo: e.target.value }))}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
             >
-              <option value="">До</option>
+              <option value="">До года</option>
               {years.map(year => (
                 <option key={year} value={year}>{year}</option>
               ))}
@@ -149,16 +152,16 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
         </div>
 
         {/* Fuel Type */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Тип топлива
           </label>
           <select
             value={filters.fuel}
             onChange={(e) => setFilters(prev => ({ ...prev, fuel: e.target.value }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
           >
-            <option value="">Любой</option>
+            <option value="">Любой тип</option>
             {fuelTypes.map(fuel => (
               <option key={fuel} value={fuel}>{fuel}</option>
             ))}
@@ -166,14 +169,14 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
         </div>
 
         {/* Transmission */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Коробка передач
           </label>
           <select
             value={filters.transmission}
             onChange={(e) => setFilters(prev => ({ ...prev, transmission: e.target.value }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
           >
             <option value="">Любая</option>
             {transmissions.map(transmission => (
@@ -183,16 +186,16 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
         </div>
 
         {/* Body Type */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-gray-50 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Тип кузова
           </label>
           <select
             value={filters.bodyType}
             onChange={(e) => setFilters(prev => ({ ...prev, bodyType: e.target.value }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white"
           >
-            <option value="">Любой</option>
+            <option value="">Любой тип</option>
             {bodyTypes.map(bodyType => (
               <option key={bodyType} value={bodyType}>{bodyType}</option>
             ))}
