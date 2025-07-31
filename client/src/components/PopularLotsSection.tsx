@@ -220,53 +220,61 @@ const PopularLotsSection: React.FC = () => {
                         </div>
 
                         {/* Content */}
-                        <div className="p-6">
+                        <div className="p-4 group-hover:p-6 transition-all duration-300">
                           <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                             {lot.name}
                           </h3>
                           
-                          <div className="text-sm text-gray-500 mb-4 font-mono">
+                          <div className="text-sm text-gray-500 mb-3 font-mono">
                             VIN: {lot.vin}
                           </div>
 
-                          {/* Specs on hover */}
-                          <div className="mb-4 space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="grid grid-cols-2 gap-2 text-xs">
-                              <div className="flex items-center space-x-1">
-                                <Settings className="w-3 h-3 text-blue-500" />
-                                <span>{lot.specs.engine}</span>
-                              </div>
-                              <div className="flex items-center space-x-1">
-                                <Gauge className="w-3 h-3 text-green-500" />
-                                <span>{lot.specs.mileage}</span>
-                              </div>
-                              <div className="flex items-center space-x-1">
-                                <Fuel className="w-3 h-3 text-orange-500" />
-                                <span>{lot.specs.fuel}</span>
-                              </div>
-                              <div className="flex items-center space-x-1">
-                                <Palette className="w-3 h-3 text-purple-500" />
-                                <span>{lot.specs.color}</span>
-                              </div>
-                            </div>
+                          <div className="flex items-center text-sm text-gray-600 mb-3">
+                            <Calendar className="w-4 h-4 mr-1" />
+                            <span>{formatDate(lot.date)}</span>
                           </div>
 
-                          <div className="flex items-center justify-between text-sm text-gray-600">
-                            <div className="flex items-center space-x-1">
-                              <Calendar className="w-4 h-4" />
-                              <span>{formatDate(lot.date)}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <DollarSign className="w-4 h-4" />
-                              <span className="font-semibold text-blue-600">
-                                {formatPrice(lot.price)}
-                              </span>
+                          {/* Expandable Specs */}
+                          <div className="overflow-hidden transition-all duration-500 group-hover:max-h-32 max-h-0">
+                            <div className="bg-gray-50 p-3 rounded-lg space-y-2 mt-3">
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                <div className="flex items-center space-x-1">
+                                  <Settings className="w-3 h-3 text-blue-500" />
+                                  <span className="font-medium">Двигатель:</span>
+                                  <span>{lot.specs.engine}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Gauge className="w-3 h-3 text-green-500" />
+                                  <span className="font-medium">Пробег:</span>
+                                  <span>{lot.specs.mileage}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Settings className="w-3 h-3 text-purple-500" />
+                                  <span className="font-medium">КПП:</span>
+                                  <span>{lot.specs.transmission}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Fuel className="w-3 h-3 text-orange-500" />
+                                  <span className="font-medium">Топливо:</span>
+                                  <span>{lot.specs.fuel}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Settings className="w-3 h-3 text-red-500" />
+                                  <span className="font-medium">Привод:</span>
+                                  <span>{lot.specs.drive}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Palette className="w-3 h-3 text-purple-500" />
+                                  <span className="font-medium">Цвет:</span>
+                                  <span>{lot.specs.color}</span>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
                           {/* Action Button */}
                           <button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                            Подробнее
+                            Узнать цену
                           </button>
                         </div>
                       </div>

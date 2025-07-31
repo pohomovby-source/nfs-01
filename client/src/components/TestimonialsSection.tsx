@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote, Play } from 'lucide-react';
 
 interface Testimonial {
   id: number;
@@ -9,6 +9,8 @@ interface Testimonial {
   rating: number;
   avatar: string;
   car: string;
+  hasVideo?: boolean;
+  videoThumbnail?: string;
 }
 
 const TestimonialsSection: React.FC = () => {
@@ -20,37 +22,54 @@ const TestimonialsSection: React.FC = () => {
       id: 1,
       name: 'Александр Петров',
       role: 'Владелец Toyota Camry',
-      content: 'Впервые покупал автомобиль через интернет. Ребята из NFS Auto сделали процесс максимально прозрачным и понятным.',
+      content: 'ИИ-система автоматически заполнила все формы, личный кабинет позволил контролировать каждый этап. Невероятно удобно!',
       rating: 5,
       avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150',
-      car: 'Toyota Camry 2022'
+      car: 'Toyota Camry 2022',
+      hasVideo: true,
+      videoThumbnail: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=400'
     },
     {
       id: 2,
       name: 'Мария Иванова',
       role: 'Владелец BMW X5',
-      content: 'Никаких скрытых платежей, все как договаривались. Автомобиль соответствует описанию на 100%.',
+      content: 'Никаких скрытых платежей, все как договаривались. Автомобиль соответствует описанию на 100%. Личный кабинет - это будущее!',
       rating: 5,
       avatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150',
-      car: 'BMW X5 2021'
+      car: 'BMW X5 2021',
+      hasVideo: false
     },
     {
       id: 3,
       name: 'Дмитрий Сидоров',
       role: 'Владелец Mercedes C-Class',
-      content: 'Отличная команда профессионалов. Помогли с выбором, оформлением и доставкой. Рекомендую!',
+      content: 'ИИ-оценка повреждений сэкономила много времени. Отличная команда профессионалов!',
       rating: 5,
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150',
-      car: 'Mercedes C-Class 2023'
+      car: 'Mercedes C-Class 2023',
+      hasVideo: true,
+      videoThumbnail: 'https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=400'
     },
     {
       id: 4,
       name: 'Елена Козлова',
       role: 'Владелец Audi Q7',
-      content: 'Быстро, качественно, честно. Получила именно то, что хотела. Спасибо за профессиональную работу!',
+      content: 'Продали мой старый автомобиль через их международную платформу по отличной цене. Полное сопровождение!',
       rating: 5,
       avatar: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=150',
-      car: 'Audi Q7 2022'
+      car: 'Audi Q7 2022',
+      hasVideo: false
+    },
+    {
+      id: 5,
+      name: 'Игорь Волков',
+      role: 'Владелец Tesla Model S',
+      content: 'Личный кабинет с уведомлениями в реальном времени - это будущее автобизнеса! Современные технологии на высшем уровне.',
+      rating: 5,
+      avatar: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150',
+      car: 'Tesla Model S 2023',
+      hasVideo: true,
+      videoThumbnail: 'https://images.pexels.com/photos/919073/pexels-photo-919073.jpeg?auto=compress&cs=tinysrgb&w=400'
     }
   ];
 
@@ -120,6 +139,27 @@ const TestimonialsSection: React.FC = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Video or Avatar */}
+              {testimonials[currentIndex].hasVideo ? (
+                <div className="mb-8 flex justify-center">
+                  <div className="relative">
+                    <img
+                      src={testimonials[currentIndex].videoThumbnail}
+                      alt={`Видео отзыв ${testimonials[currentIndex].name}`}
+                      className="w-80 h-48 rounded-2xl object-cover shadow-xl"
+                    />
+                    <div className="absolute inset-0 bg-black/20 rounded-2xl flex items-center justify-center">
+                      <button className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                        <Play className="w-8 h-8 text-blue-600 ml-1" />
+                      </button>
+                    </div>
+                    <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold">
+                      ВИДЕО
+                    </div>
+                  </div>
+                </div>
+              ) : null}
 
               {/* Author Info */}
               <div className="flex items-center justify-center space-x-4">
