@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, DollarSign } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, DollarSign, Gauge, Settings, Fuel, Palette } from 'lucide-react';
 
 const PopularLotsSection: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,7 +11,15 @@ const PopularLotsSection: React.FC = () => {
       vin: 'ZFBCFXCB5HP517978',
       price: 0,
       date: '2024-11-11',
-      image: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '2.4L',
+        mileage: '95,000 км',
+        transmission: 'АКПП',
+        drive: 'AWD',
+        fuel: 'Бензин',
+        color: 'Красный'
+      }
     },
     {
       id: 2,
@@ -19,7 +27,15 @@ const PopularLotsSection: React.FC = () => {
       vin: '168877D213648',
       price: 0,
       date: '1970-01-01',
-      image: 'https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '5.7L V8',
+        mileage: '125,000 км',
+        transmission: 'МКПП',
+        drive: 'RWD',
+        fuel: 'Бензин',
+        color: 'Синий'
+      }
     },
     {
       id: 3,
@@ -27,7 +43,15 @@ const PopularLotsSection: React.FC = () => {
       vin: '1C4RJHAG1P8804740',
       price: 0,
       date: '2024-10-30',
-      image: 'https://images.pexels.com/photos/3802508/pexels-photo-3802508.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/3802508/pexels-photo-3802508.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '3.6L V6',
+        mileage: '15,000 км',
+        transmission: 'АКПП',
+        drive: 'AWD',
+        fuel: 'Бензин',
+        color: 'Черный'
+      }
     },
     {
       id: 4,
@@ -35,7 +59,15 @@ const PopularLotsSection: React.FC = () => {
       vin: 'JHMFC1F77JX034973',
       price: 0,
       date: '1970-01-01',
-      image: 'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '1.5L Turbo',
+        mileage: '68,000 км',
+        transmission: 'CVT',
+        drive: 'FWD',
+        fuel: 'Бензин',
+        color: 'Белый'
+      }
     },
     {
       id: 5,
@@ -43,7 +75,15 @@ const PopularLotsSection: React.FC = () => {
       vin: '7FARS6H96PE024696',
       price: 9500,
       date: '2024-07-24',
-      image: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '1.5L Turbo',
+        mileage: '25,000 км',
+        transmission: 'CVT',
+        drive: 'AWD',
+        fuel: 'Бензин',
+        color: 'Серебро'
+      }
     },
     {
       id: 6,
@@ -51,7 +91,15 @@ const PopularLotsSection: React.FC = () => {
       vin: '3GNAXTEV2NL139666',
       price: 0,
       date: '1970-01-01',
-      image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '1.5L Turbo',
+        mileage: '45,000 км',
+        transmission: 'CVT',
+        drive: 'AWD',
+        fuel: 'Бензин',
+        color: 'Белый'
+      }
     },
     {
       id: 7,
@@ -59,7 +107,15 @@ const PopularLotsSection: React.FC = () => {
       vin: 'LRW3E1FA4PC845640',
       price: 0,
       date: '2024-10-29',
-      image: 'https://images.pexels.com/photos/919073/pexels-photo-919073.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/919073/pexels-photo-919073.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: 'Электро',
+        mileage: '8,000 км',
+        transmission: 'Автомат',
+        drive: 'RWD',
+        fuel: 'Электричество',
+        color: 'Черный'
+      }
     },
     {
       id: 8,
@@ -67,7 +123,15 @@ const PopularLotsSection: React.FC = () => {
       vin: 'WDC0G4KB2GF084924',
       price: 0,
       date: '2024-10-23',
-      image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400'
+      image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400',
+      specs: {
+        engine: '2.0L Turbo',
+        mileage: '85,000 км',
+        transmission: 'АКПП',
+        drive: 'AWD',
+        fuel: 'Бензин',
+        color: 'Серый'
+      }
     }
   ];
 
@@ -163,6 +227,28 @@ const PopularLotsSection: React.FC = () => {
                           
                           <div className="text-sm text-gray-500 mb-4 font-mono">
                             VIN: {lot.vin}
+                          </div>
+
+                          {/* Specs on hover */}
+                          <div className="mb-4 space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="grid grid-cols-2 gap-2 text-xs">
+                              <div className="flex items-center space-x-1">
+                                <Settings className="w-3 h-3 text-blue-500" />
+                                <span>{lot.specs.engine}</span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Gauge className="w-3 h-3 text-green-500" />
+                                <span>{lot.specs.mileage}</span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Fuel className="w-3 h-3 text-orange-500" />
+                                <span>{lot.specs.fuel}</span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Palette className="w-3 h-3 text-purple-500" />
+                                <span>{lot.specs.color}</span>
+                              </div>
+                            </div>
                           </div>
 
                           <div className="flex items-center justify-between text-sm text-gray-600">

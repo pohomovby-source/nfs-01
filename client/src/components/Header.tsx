@@ -9,6 +9,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (menuId: string) => {
@@ -25,7 +26,14 @@ const Header: React.FC = () => {
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       if (dropdownTimeoutRef.current) {
         clearTimeout(dropdownTimeoutRef.current);
       }
@@ -149,9 +157,9 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
-      {/* Top Contact Bar */}
-      <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-2.5">
+    <header className={`bg-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-0' : ''}`}>
+      {/* Top Contact Bar - Hide when scrolled */}
+      <div className={`bg-gradient-to-r from-gray-800 to-gray-900 text-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 py-0' : 'py-2.5'}`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6">
@@ -186,32 +194,34 @@ const Header: React.FC = () => {
       {/* Main Header */}
       <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
+          <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                <Car className="w-7 h-7 text-white" />
+              <div className={`bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
+                <Car className={`text-white transition-all duration-300 ${isScrolled ? 'w-5 h-5' : 'w-7 h-7'}`} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                <h1 className={`font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-2xl'}`}>
                   NFS AUTO
                 </h1>
-                <p className="text-xs text-gray-500">Пригон авто из США</p>
+                {!isScrolled && (
+                  <p className="text-xs text-gray-500">Пригон авто из США</p>
+                )}
               </div>
             </div>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-8">
               <div className="relative group">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-all duration-300 ${isScrolled ? 'w-4 h-4' : 'w-5 h-5'}`} />
                 <input
                   type="text"
                   placeholder="Поиск по марке, модели или VIN номеру..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-3.5 pl-12 pr-32 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all duration-300 text-gray-700 placeholder-gray-400"
+                  className={`w-full px-4 pl-12 pr-32 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all duration-300 text-gray-700 placeholder-gray-400 ${isScrolled ? 'py-2.5 text-sm' : 'py-3.5'}`}
                 />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <button className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg ${isScrolled ? 'py-2 text-sm' : 'py-2.5'}`}>
                   Найти
                 </button>
               </div>
@@ -242,7 +252,7 @@ const Header: React.FC = () => {
       </div>
 
       {/* Modern Navigation Menu */}
-      <nav className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg">
+      <nav className={`bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg transition-all duration-300 ${isScrolled ? 'py-1' : ''}`}>
         <div className="container mx-auto px-4">
           <div className="hidden lg:flex items-center">
             {/* Каталог с иконкой */}
@@ -251,7 +261,7 @@ const Header: React.FC = () => {
               onMouseEnter={() => handleMouseEnter('catalog')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <button className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
                 <Grid3X3 className="w-5 h-5" />
                 <span>Каталог</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
@@ -278,7 +288,7 @@ const Header: React.FC = () => {
                                 <a
                                   href={item.url}
                                   className={`block text-sm hover:text-blue-600 transition-colors py-1.5 px-2 rounded-lg hover:bg-blue-50 ${
-                                    item.popular ? 'text-blue-700 font-medium' : 'text-gray-600'
+                                    'popular' in item && item.popular ? 'text-blue-700 font-medium' : 'text-gray-600'
                                   }`}
                                 >
                                   <div className="flex justify-between items-center">
@@ -310,7 +320,7 @@ const Header: React.FC = () => {
               onMouseEnter={() => handleMouseEnter('delivery')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <button className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
                 <Truck className="w-5 h-5" />
                 <span>Доставка</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
@@ -360,7 +370,7 @@ const Header: React.FC = () => {
               onMouseEnter={() => handleMouseEnter('information')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <button className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
                 <Info className="w-5 h-5" />
                 <span>Информация</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
@@ -391,17 +401,17 @@ const Header: React.FC = () => {
             </div>
 
             {/* Остальные пункты меню */}
-            <a href="#more" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+            <a href="#more" className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
               <Package className="w-5 h-5" />
               <span>Услуги</span>
             </a>
 
-            <a href="#contacts" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+            <a href="#contacts" className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
               <Phone className="w-5 h-5" />
               <span>Контакты</span>
             </a>
 
-            <a href="#usa-cars" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+            <a href="#usa-cars" className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
               <Car className="w-5 h-5" />
               <span>Авто из США</span>
             </a>

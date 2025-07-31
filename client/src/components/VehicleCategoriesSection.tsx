@@ -33,14 +33,14 @@ const VehicleCategoriesSection: React.FC = () => {
               className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-gray-100 hover:border-blue-200 relative backdrop-blur-sm"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="p-6 text-center">
+              <div className="p-4 text-center">
                 {/* Image */}
-                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500/10 via-blue-400/20 to-purple-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl border border-blue-200/30 group-hover:border-blue-300/50">
+                <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-500/10 via-blue-400/20 to-purple-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl border border-blue-200/30 group-hover:border-blue-300/50">
                   <div className="relative">
                     <img 
                       src={category.image} 
                       alt={category.name}
-                      className="w-14 h-14 object-contain drop-shadow-lg group-hover:drop-shadow-xl transition-all duration-300"
+                      className="w-18 h-18 object-contain drop-shadow-lg group-hover:drop-shadow-xl transition-all duration-300"
                       onError={(e) => {
                         // Fallback to emoji if image fails to load
                         const target = e.target as HTMLImageElement;
@@ -48,7 +48,7 @@ const VehicleCategoriesSection: React.FC = () => {
                         target.nextElementSibling!.classList.remove('hidden');
                       }}
                     />
-                    <div className="text-3xl hidden group-hover:animate-bounce">
+                    <div className="text-4xl hidden group-hover:animate-bounce">
                       {category.icon}
                     </div>
                     {/* Glow effect */}

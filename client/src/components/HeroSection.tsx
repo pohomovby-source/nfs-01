@@ -42,9 +42,9 @@ const HeroSection: React.FC = () => {
               </h1>
               
               <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
-                Полный цикл услуг для покупки автомобилей из <span className="text-yellow-400 font-semibold">США, Кореи, Китая и Европы</span>. 
+                Полный цикл услуг для покупки и <span className="text-yellow-400 font-semibold">продажи автомобилей</span> из США, Кореи, Китая и Европы. 
                 Доставляем как <span className="text-yellow-400 font-semibold">новые, так и подержанные</span> автомобили. 
-                Честно, прозрачно, профессионально.
+                <span className="text-blue-300 font-semibold">Скоро: ИИ-автоматизация и личный кабинет</span> с полным контролем сделки.
               </p>
             </div>
 

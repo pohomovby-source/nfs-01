@@ -55,37 +55,39 @@ const FAQSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="mb-4 bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
               >
-                <span className="text-lg font-semibold text-gray-900 pr-4">
-                  {faq.question}
-                </span>
-                {openIndex === index ? (
-                  <ChevronUp className="w-6 h-6 text-yellow-500 flex-shrink-0" />
-                ) : (
-                  <ChevronDown className="w-6 h-6 text-gray-400 flex-shrink-0" />
-                )}
-              </button>
-              
-              {openIndex === index && (
-                <div className="px-8 pb-6 animate-in slide-in-from-top duration-300">
-                  <div className="border-t border-gray-100 pt-4">
-                    <p className="text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </p>
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-base font-semibold text-gray-900 pr-4">
+                    {faq.question}
+                  </span>
+                  {openIndex === index ? (
+                    <ChevronUp className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  )}
+                </button>
+                
+                {openIndex === index && (
+                  <div className="px-6 pb-5 animate-in slide-in-from-top duration-300">
+                    <div className="border-t border-gray-100 pt-4">
+                      <p className="text-gray-600 leading-relaxed text-sm">
+                        {faq.answer}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="text-center mt-12">
