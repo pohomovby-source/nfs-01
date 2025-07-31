@@ -57,10 +57,10 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, setFilters, cars
   };
 
   // Get unique values for filter options
-  const brands = [...new Set(cars.map(car => car.brand))].sort();
-  const fuelTypes = [...new Set(cars.map(car => car.fuel))].sort();
-  const transmissions = [...new Set(cars.map(car => car.transmission))].sort();
-  const bodyTypes = [...new Set(cars.map(car => car.bodyType))].sort();
+  const brands = Array.from(new Set(cars.map(car => car.brand))).sort();
+  const fuelTypes = Array.from(new Set(cars.map(car => car.fuel))).sort();
+  const transmissions = Array.from(new Set(cars.map(car => car.transmission))).sort();
+  const bodyTypes = Array.from(new Set(cars.map(car => car.bodyType).filter(Boolean))).sort();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
