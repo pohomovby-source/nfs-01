@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'wouter';
 import { 
   Phone, Search, Menu, X, ChevronDown, Car, Truck, Ship, Building, 
   Grid3X3, Info, Package, MapPin, Mail, Clock, Heart, Star,
@@ -229,6 +230,18 @@ const Header: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="hidden lg:flex items-center space-x-3">
+              <Link
+                href="/"
+                className="text-blue-600 hover:text-blue-700 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all font-medium"
+              >
+                Главная
+              </Link>
+              <Link
+                href="/catalog"
+                className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all font-medium"
+              >
+                Каталог
+              </Link>
               <button className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all">
                 <Heart className="w-5 h-5" />
                 <span className="text-sm font-medium">Избранное</span>
@@ -261,11 +274,14 @@ const Header: React.FC = () => {
               onMouseEnter={() => handleMouseEnter('catalog')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
+              <Link
+                href="/catalog"
+                className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}
+              >
                 <Grid3X3 className="w-5 h-5" />
                 <span>Каталог</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
-              </button>
+              </Link>
 
               {/* Enhanced Catalog Mega Menu */}
               {activeDropdown === 'catalog' && (
@@ -305,9 +321,12 @@ const Header: React.FC = () => {
                       ))}
                     </div>
                     <div className="mt-6 pt-6 border-t border-gray-100 text-center">
-                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                      <Link
+                        href="/catalog"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors inline-block"
+                      >
                         Смотреть все марки
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
