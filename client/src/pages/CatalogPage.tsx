@@ -33,6 +33,8 @@ const CatalogPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [displayedCars, setDisplayedCars] = useState(6);
+  const [sortBy, setSortBy] = useState('default');
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [filters, setFilters] = useState({
     brand: '',
     priceFrom: '',
@@ -57,6 +59,18 @@ const CatalogPage = () => {
     { label: 'Бензин', filter: { fuel: 'Бензин' } },
   ];
 
+  // Sorting options
+  const sortOptions = [
+    { value: 'default', label: 'По умолчанию' },
+    { value: 'price_asc', label: 'Цена: по возрастанию' },
+    { value: 'price_desc', label: 'Цена: по убыванию' },
+    { value: 'year_desc', label: 'Год: сначала новые' },
+    { value: 'year_asc', label: 'Год: сначала старые' },
+    { value: 'mileage_asc', label: 'Пробег: по возрастанию' },
+    { value: 'rating_desc', label: 'По рейтингу' },
+    { value: 'views_desc', label: 'По популярности' },
+  ];
+
   const { data: carsData, isLoading } = useQuery({
     queryKey: ['/api/cars'],
     enabled: true,
@@ -64,21 +78,42 @@ const CatalogPage = () => {
 
   const cars: Car[] = (carsData as any)?.cars || [];
 
-  // Filter cars based on current filters
-  const filteredCars = cars.filter((car: Car) => {
-    if (filters.brand && car.brand.toLowerCase() !== filters.brand.toLowerCase()) return false;
-    if (filters.priceFrom && parseFloat(car.price) < parseFloat(filters.priceFrom)) return false;
-    if (filters.priceTo && parseFloat(car.price) > parseFloat(filters.priceTo)) return false;
-    if (filters.yearFrom && car.year < parseInt(filters.yearFrom)) return false;
-    if (filters.yearTo && car.year > parseInt(filters.yearTo)) return false;
-    if (filters.fuel && car.fuel.toLowerCase() !== filters.fuel.toLowerCase()) return false;
-    if (filters.transmission && car.transmission.toLowerCase() !== filters.transmission.toLowerCase()) return false;
-    if (filters.bodyType && car.bodyType.toLowerCase() !== filters.bodyType.toLowerCase()) return false;
-    if (filters.search && !car.name.toLowerCase().includes(filters.search.toLowerCase()) && 
-        !car.brand.toLowerCase().includes(filters.search.toLowerCase()) &&
-        !car.model.toLowerCase().includes(filters.search.toLowerCase())) return false;
-    return true;
-  });
+  // Filter and sort cars
+  const filteredAndSortedCars = cars
+    .filter((car: Car) => {
+      if (filters.brand && car.brand.toLowerCase() !== filters.brand.toLowerCase()) return false;
+      if (filters.priceFrom && parseFloat(car.price) < parseFloat(filters.priceFrom)) return false;
+      if (filters.priceTo && parseFloat(car.price) > parseFloat(filters.priceTo)) return false;
+      if (filters.yearFrom && car.year < parseInt(filters.yearFrom)) return false;
+      if (filters.yearTo && car.year > parseInt(filters.yearTo)) return false;
+      if (filters.fuel && car.fuel.toLowerCase() !== filters.fuel.toLowerCase()) return false;
+      if (filters.transmission && car.transmission.toLowerCase() !== filters.transmission.toLowerCase()) return false;
+      if (filters.bodyType && car.bodyType.toLowerCase() !== filters.bodyType.toLowerCase()) return false;
+      if (filters.search && !car.name.toLowerCase().includes(filters.search.toLowerCase()) && 
+          !car.brand.toLowerCase().includes(filters.search.toLowerCase()) &&
+          !car.model.toLowerCase().includes(filters.search.toLowerCase())) return false;
+      return true;
+    })
+    .sort((a: Car, b: Car) => {
+      switch (sortBy) {
+        case 'price_asc':
+          return parseFloat(a.price) - parseFloat(b.price);
+        case 'price_desc':
+          return parseFloat(b.price) - parseFloat(a.price);
+        case 'year_desc':
+          return b.year - a.year;
+        case 'year_asc':
+          return a.year - b.year;
+        case 'mileage_asc':
+          return a.mileage - b.mileage;
+        case 'rating_desc':
+          return parseFloat(b.rating) - parseFloat(a.rating);
+        case 'views_desc':
+          return b.views - a.views;
+        default:
+          return 0;
+      }
+    });
 
   const categoryTitle = params.category ? 
     (params.category === 'avtomobil' ? 'Автомобили' : 
@@ -127,7 +162,7 @@ const CatalogPage = () => {
               </div>
               <div>
                 <h1 className="text-3xl font-bold mb-2">{categoryTitle}</h1>
-                <p className="text-blue-100 text-lg">Подберите автомобиль своей мечты из {filteredCars.length} доступных вариантов</p>
+                <p className="text-blue-100 text-lg">Подберите автомобиль своей мечты из {filteredAndSortedCars.length} доступных вариантов</p>
               </div>
             </div>
             
@@ -153,23 +188,78 @@ const CatalogPage = () => {
         <div className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Популярные фильтры</h2>
           <div className="flex flex-wrap gap-3">
-            {popularTags.map((tag, index) => (
+            {popularTags.map((tag, index) => {
+              const isActive = Object.entries(tag.filter).some(([key, value]) => 
+                filters[key as keyof typeof filters] === value
+              );
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleTagClick(tag.filter)}
+                  className={`px-4 py-2 border rounded-xl transition-all duration-300 text-sm font-medium ${
+                    isActive 
+                      ? 'bg-blue-600 border-blue-600 text-white shadow-lg transform scale-105' 
+                      : 'bg-white border-gray-300 text-gray-700 hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {tag.label}
+                </button>
+              );
+            })}
+            {Object.values(filters).some(value => value !== '') && (
               <button
-                key={index}
-                onClick={() => handleTagClick(tag.filter)}
-                className="px-4 py-2 bg-white border border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 text-sm font-medium text-gray-700 hover:text-blue-600"
+                onClick={resetFilters}
+                className="px-4 py-2 bg-red-100 border border-red-300 rounded-xl hover:bg-red-200 transition-all duration-300 text-sm font-medium text-red-600 hover:text-red-700"
               >
-                {tag.label}
+                <X className="w-4 h-4 inline mr-1" />
+                Сбросить все
               </button>
-            ))}
-            <button
-              onClick={resetFilters}
-              className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-xl hover:bg-gray-200 transition-all duration-300 text-sm font-medium text-gray-600"
-            >
-              Сбросить все
-            </button>
+            )}
           </div>
         </div>
+
+        {/* Active Filters Display */}
+        {Object.values(filters).some(value => value !== '') && (
+          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-2xl p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-blue-900">Активные фильтры</h3>
+              <button
+                onClick={resetFilters}
+                className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Очистить все
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(filters).map(([key, value]) => {
+                if (!value) return null;
+                const filterLabels = {
+                  brand: 'Марка',
+                  priceFrom: 'Цена от',
+                  priceTo: 'Цена до',
+                  yearFrom: 'Год от',
+                  yearTo: 'Год до',
+                  fuel: 'Топливо',
+                  transmission: 'КПП',
+                  bodyType: 'Кузов',
+                  search: 'Поиск'
+                };
+                return (
+                  <div key={key} className="flex items-center gap-1 bg-white border border-blue-300 rounded-lg px-3 py-1.5 text-xs">
+                    <span className="text-blue-600 font-medium">{filterLabels[key as keyof typeof filterLabels]}:</span>
+                    <span className="text-gray-700">{value}</span>
+                    <button
+                      onClick={() => setFilters(prev => ({ ...prev, [key]: '' }))}
+                      className="text-blue-500 hover:text-blue-700 ml-1"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Controls Bar */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
@@ -217,19 +307,65 @@ const CatalogPage = () => {
             </div>
 
             {/* Results Count & Sort */}
-            <div className="flex items-center gap-4">
-              <div className="text-gray-600">
-                Найдено: <span className="font-semibold text-blue-600">{filteredCars.length}</span> автомобилей
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex items-center gap-4">
+                <div className="text-gray-600">
+                  Найдено: <span className="font-semibold text-blue-600">{filteredAndSortedCars.length}</span> автомобилей
+                </div>
+                
+                {/* Sorting indicator */}
+                {sortBy !== 'default' && (
+                  <div className="flex items-center gap-2 text-sm bg-green-100 px-3 py-1 rounded-full">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-green-700 font-medium">Сортировка применена</span>
+                  </div>
+                )}
+
+                {/* Quick stats */}
+                {cars.length > 0 && (
+                  <div className="hidden md:flex items-center gap-4 text-sm text-gray-500">
+                    <span>Всего в каталоге: {cars.length}</span>
+                    <span>•</span>
+                    <span>Показывается: {Math.min(displayedCars, filteredAndSortedCars.length)}</span>
+                  </div>
+                )}
               </div>
               
-              <select className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option>По умолчанию</option>
-                <option>Сначала дешевые</option>
-                <option>Сначала дорогие</option>
-                <option>По году (новые)</option>
-                <option>По году (старые)</option>
-                <option>По пробегу</option>
-              </select>
+              {/* Custom Sort Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowSortDropdown(!showSortDropdown)}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 font-medium text-gray-700"
+                >
+                  <span>{sortOptions.find(opt => opt.value === sortBy)?.label}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showSortDropdown ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {showSortDropdown && (
+                  <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl z-50 py-2 animate-in slide-in-from-top">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Сортировать по</span>
+                    </div>
+                    {sortOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => {
+                          setSortBy(option.value);
+                          setShowSortDropdown(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors flex items-center justify-between ${
+                          sortBy === option.value ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                        }`}
+                      >
+                        <span>{option.label}</span>
+                        {sortBy === option.value && (
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -278,7 +414,7 @@ const CatalogPage = () => {
                   </div>
                 ))}
               </div>
-            ) : filteredCars.length === 0 ? (
+            ) : filteredAndSortedCars.length === 0 ? (
               <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
                 <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Car className="w-12 h-12 text-gray-400" />
@@ -304,7 +440,7 @@ const CatalogPage = () => {
                     ? (viewMode === 'grid' ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1') 
                     : (viewMode === 'grid' ? 'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1')
                 }`}>
-                  {filteredCars.slice(0, displayedCars).map((car: Car, index) => (
+                  {filteredAndSortedCars.slice(0, displayedCars).map((car: Car, index) => (
                     <div 
                       key={car.id}
                       className="animate-in"
@@ -319,13 +455,22 @@ const CatalogPage = () => {
                 </div>
 
                 {/* Load More Button */}
-                {displayedCars < filteredCars.length && (
-                  <div className="text-center">
+                {displayedCars < filteredAndSortedCars.length && (
+                  <div className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
+                    <p className="text-gray-600 mb-4">
+                      Показано {displayedCars} из {filteredAndSortedCars.length} автомобилей
+                    </p>
+                    <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+                      <div 
+                        className="bg-gradient-to-r from-blue-600 to-blue-700 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${(displayedCars / filteredAndSortedCars.length) * 100}%` }}
+                      ></div>
+                    </div>
                     <button
                       onClick={loadMoreCars}
                       className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
                     >
-                      Показать еще ({filteredCars.length - displayedCars} автомобилей)
+                      Показать еще ({filteredAndSortedCars.length - displayedCars} автомобилей)
                     </button>
                   </div>
                 )}
