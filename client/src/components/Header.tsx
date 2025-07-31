@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { 
-  Phone, Search, Menu, X, ChevronDown, Car, Truck, Ship, Building, 
+  Phone, Search, Menu, X, ChevronDown, Car as CarIcon, Truck, Ship, Building, 
   Grid3X3, Info, Package, MapPin, Mail, Clock, Heart, Star,
   FileText, HelpCircle, MessageCircle, Shield, Award, Zap
 } from 'lucide-react';
@@ -103,7 +103,7 @@ const Header: React.FC = () => {
     },
     {
       category: 'Японские марки',
-      icon: <Car className="w-4 h-4" />,
+      icon: <CarIcon className="w-4 h-4" />,
       items: [
         { name: 'Toyota', count: 30860, url: '#' },
         { name: 'Honda', count: 25000, url: '#' },
@@ -216,7 +216,7 @@ const Header: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className={`bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
-                <Car className={`text-white transition-all duration-300 ${isScrolled ? 'w-5 h-5' : 'w-7 h-7'}`} />
+                <CarIcon className={`text-white transition-all duration-300 ${isScrolled ? 'w-5 h-5' : 'w-7 h-7'}`} />
               </div>
               <div>
                 <h1 className={`font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-2xl'}`}>
@@ -361,7 +361,7 @@ const Header: React.FC = () => {
                                   />
                                 ) : (
                                   <div className="w-full h-24 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                                    <Car className="w-8 h-8 text-gray-400" />
+                                    <CarIcon className="w-8 h-8 text-gray-400" />
                                   </div>
                                 )}
                                 <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">
@@ -505,7 +505,7 @@ const Header: React.FC = () => {
             </a>
 
             <a href="#usa-cars" className={`flex items-center space-x-2 px-6 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1 ${isScrolled ? 'py-3' : 'py-4'}`}>
-              <Car className="w-5 h-5" />
+              <CarIcon className="w-5 h-5" />
               <span>Авто из США</span>
             </a>
 
