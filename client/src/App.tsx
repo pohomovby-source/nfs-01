@@ -6,10 +6,12 @@ import VehicleCategoriesSection from './components/VehicleCategoriesSection';
 import StagesSection from './components/StagesSection';
 import PopularLotsSection from './components/PopularLotsSection';
 import BrandSelector from './components/BrandSelector';
+import AboutSection from './components/AboutSection';
 import WhyChooseUsSection from './components/WhyChooseUsSection';
 import LastCarsSection from './components/LastCarsSection';
 import FAQSection from './components/FAQSection';
 import TestimonialsSection from './components/TestimonialsSection';
+import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 
 function App() {
@@ -23,10 +25,12 @@ function App() {
         <StagesSection />
         <PopularLotsSection />
         <BrandSelector />
+        <AboutSection />
         <WhyChooseUsSection />
         <LastCarsSection />
         <FAQSection />
         <TestimonialsSection />
+        <ContactSection />
       </main>
       <Footer />
     </div>

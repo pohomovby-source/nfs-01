@@ -1,50 +1,125 @@
 import React from 'react';
-import { Car, Truck, CreditCard, Wrench, Shield, FileText, Phone, Globe, Clock, Award } from 'lucide-react';
 
 const ServicesGrid: React.FC = () => {
   const services = [
-    { icon: Car, title: 'Подбор автомобилей', color: 'bg-blue-600', description: 'Персональный подбор под ваши потребности' },
-    { icon: Globe, title: 'Доставка из-за рубежа', color: 'bg-green-600', description: 'Быстрая и безопасная доставка' },
-    { icon: FileText, title: 'Оформление документов', color: 'bg-purple-600', description: 'Полное юридическое сопровождение' },
-    { icon: Shield, title: 'Страхование', color: 'bg-red-600', description: 'ОСАГО и КАСКО по лучшим тарифам' },
-    { icon: Truck, title: 'Логистика', color: 'bg-orange-600', description: 'Собственная логистическая сеть' },
-    { icon: CreditCard, title: 'Кредитование', color: 'bg-indigo-600', description: 'Выгодные условия финансирования' },
-    { icon: Wrench, title: 'Техосмотр', color: 'bg-teal-600', description: 'Профессиональная диагностика' },
-    { icon: Phone, title: 'Консультации', color: 'bg-pink-600', description: '24/7 поддержка клиентов' },
-    { icon: Clock, title: 'Быстрое оформление', color: 'bg-yellow-600', description: 'Минимум времени на документы' },
-    { icon: Award, title: 'Гарантия качества', color: 'bg-emerald-600', description: '100% проверенные автомобили' }
+    {
+      title: 'Доставка автомобилей',
+      description: 'Быстрая и безопасная доставка автомобилей из США в Беларусь морским и автомобильным транспортом',
+      icon: '🚢',
+      image: 'https://nfsauto.by/wp-content/uploads/2024/10/dostavka-avto-nfs.jpg',
+      features: ['Морская доставка', 'Страхование груза', 'Контейнерная перевозка', 'Отслеживание груза']
+    },
+    {
+      title: 'Растаможка автомобилей',
+      description: 'Полное таможенное сопровождение и оформление всех документов для ввоза автомобиля в Беларусь',
+      icon: '📋',
+      image: 'https://nfsauto.by/wp-content/uploads/2024/10/rastamozka-nfs.jpg',
+      features: ['Таможенная очистка', 'Оформление документов', 'Сертификация', 'Постановка на учет']
+    },
+    {
+      title: 'Покупка на аукционах',
+      description: 'Участие в аукционах США от вашего имени с профессиональным подходом и опытом',
+      icon: '🎯',
+      image: 'https://nfsauto.by/wp-content/uploads/2024/10/aukcioni-nfs.jpg',
+      features: ['Участие в торгах', 'Анализ лотов', 'Проверка истории', 'Консультации']
+    },
+    {
+      title: 'Гарантии и страхование',
+      description: 'Комплексные гарантии качества и страхование на всех этапах покупки и доставки',
+      icon: '🛡️',
+      image: 'https://nfsauto.by/wp-content/uploads/2024/10/garantii-nfs.jpg',
+      features: ['Гарантия качества', 'Страхование груза', 'Возврат средств', 'Техническая поддержка']
+    }
   ];
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-16 bg-white" id="delivery">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Наши услуги
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Полный спектр услуг для покупки автомобиля из-за рубежа
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Полный комплекс услуг по пригону автомобилей из США под ключ
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-center"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group bg-gradient-to-br from-white to-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
+              style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div className={`w-10 h-10 sm:w-12 sm:h-12 ${service.color} rounded-lg flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300`}>
-                <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              {/* Image Section */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=600';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                
+                {/* Icon */}
+                <div className="absolute top-6 left-6 w-16 h-16 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-3xl">{service.icon}</span>
+                </div>
+
+                {/* Title Overlay */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {service.title}
+                  </h3>
+                </div>
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-1 sm:mb-2 leading-tight">
-                {service.title}
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
-                {service.description}
-              </p>
+
+              {/* Content Section */}
+              <div className="p-8">
+                <p className="text-gray-600 leading-relaxed mb-6 text-base">
+                  {service.description}
+                </p>
+
+                {/* Features List */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  {service.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center text-sm text-gray-700">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Button */}
+                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                  Подробнее об услуге
+                </button>
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center mt-16">
+          <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-3xl p-8 inline-block">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Нужна консультация по услугам?
+            </h3>
+            <p className="text-gray-600 mb-6 max-w-md">
+              Наши эксперты подберут оптимальный пакет услуг для вашего случая
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+                Бесплатная консультация
+              </button>
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+                Рассчитать стоимость
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
