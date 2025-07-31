@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Phone, Search, Menu, X, ChevronDown, Car, Truck, Ship, Building } from 'lucide-react';
+import { 
+  Phone, Search, Menu, X, ChevronDown, Car, Truck, Ship, Building, 
+  Grid3X3, Info, Package, MapPin, Mail, Clock, Heart, Star,
+  FileText, HelpCircle, MessageCircle, Shield, Award, Zap
+} from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,122 +34,149 @@ const Header: React.FC = () => {
 
   const catalogMenuItems = [
     {
-      category: 'Марки',
+      category: 'Популярные марки',
+      icon: <Star className="w-4 h-4" />,
       items: [
-        { name: 'Acura (30860)', count: 30860, url: '#' },
-        { name: 'Alfa Romeo (30139)', count: 30139, url: '#' },
-        { name: 'Audi (37307)', count: 37307, url: '#' },
-        { name: 'Bentley (6)', count: 6, url: '#' },
-        { name: 'BMW (1)', count: 1, url: '#' },
-        { name: 'Bugatti (145977)', count: 145977, url: '#' },
-        { name: 'Chrysler (13059)', count: 13059, url: '#' },
-        { name: 'Daewoo (4)', count: 4, url: '#' }
+        { name: 'Toyota', count: 30860, url: '#', popular: true },
+        { name: 'BMW', count: 30139, url: '#', popular: true },
+        { name: 'Mercedes-Benz', count: 37307, url: '#', popular: true },
+        { name: 'Audi', count: 25000, url: '#', popular: true },
+        { name: 'Honda', count: 22000, url: '#', popular: true },
+        { name: 'Ford', count: 18000, url: '#', popular: true },
+        { name: 'Volkswagen', count: 15000, url: '#', popular: true },
+        { name: 'Lexus', count: 12000, url: '#', popular: true }
       ]
     },
     {
-      category: 'A-E',
+      category: 'Премиум сегмент',
+      icon: <Award className="w-4 h-4" />,
       items: [
-        { name: 'Aro Romeo (30139)', count: 30139, url: '#' },
-        { name: 'Arctic Cat (192)', count: 192, url: '#' },
-        { name: 'Austin (25)', count: 25, url: '#' },
-        { name: 'Avanti Coachworks (1)', count: 1, url: '#' },
-        { name: 'Bajaj (3)', count: 3, url: '#' },
-        { name: 'Bentley (511)', count: 511, url: '#' },
-        { name: 'BMW (52373)', count: 52373, url: '#' },
-        { name: 'BYD (1)', count: 1, url: '#' }
+        { name: 'Porsche', count: 5500, url: '#' },
+        { name: 'Ferrari', count: 865, url: '#' },
+        { name: 'Lamborghini', count: 420, url: '#' },
+        { name: 'Bentley', count: 511, url: '#' },
+        { name: 'Rolls-Royce', count: 180, url: '#' },
+        { name: 'McLaren', count: 95, url: '#' },
+        { name: 'Aston Martin', count: 220, url: '#' },
+        { name: 'Maserati', count: 340, url: '#' }
       ]
     },
     {
-      category: 'Авто (C)',
+      category: 'Американские бренды',
+      icon: <Zap className="w-4 h-4" />,
       items: [
-        { name: 'Acura (2)', count: 2, url: '#' },
-        { name: 'Aro (162)', count: 162, url: '#' },
-        { name: 'Bentley (5)', count: 5, url: '#' },
-        { name: 'Big Dog (505)', count: 505, url: '#' },
-        { name: 'Buick (37834)', count: 37834, url: '#' },
-        { name: 'Ciencia (29)', count: 29, url: '#' },
-        { name: 'Daewoo (36)', count: 36, url: '#' },
-        { name: 'DeLorean (9)', count: 9, url: '#' }
+        { name: 'Chevrolet', count: 32994, url: '#' },
+        { name: 'Ford', count: 29000, url: '#' },
+        { name: 'Dodge', count: 20462, url: '#' },
+        { name: 'Cadillac', count: 15947, url: '#' },
+        { name: 'Jeep', count: 18500, url: '#' },
+        { name: 'Tesla', count: 8900, url: '#' },
+        { name: 'Lincoln', count: 4200, url: '#' },
+        { name: 'Chrysler', count: 3800, url: '#' }
       ]
     },
     {
-      category: 'AM-мотоcy (6)',
+      category: 'Японские марки',
+      icon: <Car className="w-4 h-4" />,
       items: [
-        { name: 'AM General (6)', count: 6, url: '#' },
-        { name: 'Aprilia (200)', count: 200, url: '#' },
-        { name: 'Bentley (191)', count: 191, url: '#' },
-        { name: 'BMW (52373)', count: 52373, url: '#' },
-        { name: 'Chevrolet (329943)', count: 329943, url: '#' },
-        { name: 'Daihatsu (8)', count: 8, url: '#' },
-        { name: 'Dodge (204627)', count: 204627, url: '#' },
-        { name: 'Ferrari (865)', count: 865, url: '#' }
+        { name: 'Toyota', count: 30860, url: '#' },
+        { name: 'Honda', count: 25000, url: '#' },
+        { name: 'Nissan', count: 22000, url: '#' },
+        { name: 'Mazda', count: 15000, url: '#' },
+        { name: 'Subaru', count: 12000, url: '#' },
+        { name: 'Mitsubishi', count: 8500, url: '#' },
+        { name: 'Lexus', count: 12000, url: '#' },
+        { name: 'Infiniti', count: 6500, url: '#' }
       ]
     },
     {
-      category: 'АЧС (71)',
+      category: 'Европейские марки',
+      icon: <Shield className="w-4 h-4" />,
       items: [
-        { name: 'Acura (2)', count: 2, url: '#' },
-        { name: 'Ai (3)', count: 3, url: '#' },
-        { name: 'Bentone (4)', count: 4, url: '#' },
-        { name: 'Bombardier (9)', count: 9, url: '#' },
-        { name: 'Cadillac (25947)', count: 25947, url: '#' },
-        { name: 'Datsun (77)', count: 77, url: '#' },
-        { name: 'Ducati (665)', count: 665, url: '#' },
-        { name: 'Fiat (1369)', count: 1369, url: '#' }
+        { name: 'BMW', count: 52373, url: '#' },
+        { name: 'Mercedes-Benz', count: 45000, url: '#' },
+        { name: 'Audi', count: 37307, url: '#' },
+        { name: 'Volkswagen', count: 28000, url: '#' },
+        { name: 'Volvo', count: 8500, url: '#' },
+        { name: 'MINI', count: 5200, url: '#' },
+        { name: 'Jaguar', count: 3400, url: '#' },
+        { name: 'Land Rover', count: 4800, url: '#' }
       ]
     }
   ];
 
   const deliveryMenuItems = [
     {
-      title: 'Доставка автомобилей',
-      description: 'Морская и наземная доставка из США',
+      title: 'Морская доставка',
+      description: 'Контейнерная доставка из портов США',
       icon: <Ship className="w-6 h-6" />,
-      url: '#delivery'
+      url: '#delivery',
+      highlight: true
     },
     {
-      title: 'Растаможка',
-      description: 'Полное таможенное оформление',
+      title: 'Автомобильная доставка',
+      description: 'Наземная логистика по территории США',
+      icon: <Truck className="w-6 h-6" />,
+      url: '#auto-delivery'
+    },
+    {
+      title: 'Таможенное оформление',
+      description: 'Полное сопровождение растаможки',
       icon: <Building className="w-6 h-6" />,
       url: '#customs'
     },
     {
-      title: 'Логистика',
-      description: 'Комплексные логистические решения',
-      icon: <Truck className="w-6 h-6" />,
-      url: '#logistics'
+      title: 'Страхование груза',
+      description: 'Защита автомобиля в пути',
+      icon: <Shield className="w-6 h-6" />,
+      url: '#insurance'
     },
     {
-      title: 'Страхование',
-      description: 'Страхование груза и автомобиля',
-      icon: <Car className="w-6 h-6" />,
-      url: '#insurance'
+      title: 'Отслеживание груза',
+      description: 'Онлайн мониторинг доставки',
+      icon: <Package className="w-6 h-6" />,
+      url: '#tracking'
     }
   ];
 
   const informationMenuItems = [
-    { name: 'О компании', url: '#about' },
-    { name: 'Новости', url: '#news' },
-    { name: 'Статьи', url: '#articles' },
-    { name: 'FAQ', url: '#faq' },
-    { name: 'Отзывы', url: '#reviews' },
-    { name: 'Гарантии', url: '#guarantees' }
+    { name: 'О компании', icon: <Info className="w-4 h-4" />, url: '#about' },
+    { name: 'Отзывы клиентов', icon: <MessageCircle className="w-4 h-4" />, url: '#reviews' },
+    { name: 'Часто задаваемые вопросы', icon: <HelpCircle className="w-4 h-4" />, url: '#faq' },
+    { name: 'Гарантии и условия', icon: <Shield className="w-4 h-4" />, url: '#guarantees' },
+    { name: 'Новости', icon: <FileText className="w-4 h-4" />, url: '#news' },
+    { name: 'Полезные статьи', icon: <FileText className="w-4 h-4" />, url: '#articles' }
   ];
 
   return (
     <header className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-gray-800 text-white py-2">
+      {/* Top Contact Bar */}
+      <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-2.5">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6">
-              <span>Работаем: Пн-Пт 9:00-18:00, Сб-Вс 10:00-16:00</span>
-              <span>Email: info@nfsauto.by</span>
+              <div className="flex items-center space-x-2">
+                <Clock className="w-4 h-4 text-yellow-400" />
+                <span>Пн-Пт 9:00-18:00, Сб-Вс 10:00-16:00</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4 text-blue-400" />
+                <a href="mailto:info@nfsauto.by" className="hover:text-yellow-400 transition-colors">
+                  info@nfsauto.by
+                </a>
+              </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <a href="tel:+375447550011" className="flex items-center space-x-2 hover:text-yellow-400 transition-colors">
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2">
+                <MapPin className="w-4 h-4 text-green-400" />
+                <span>г. Минск</span>
+              </div>
+              <a 
+                href="tel:+375447550011" 
+                className="flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-1.5 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
+              >
                 <Phone className="w-4 h-4" />
-                <span className="font-semibold">+375 (44) 755 00 11</span>
+                <span>+375 (44) 755 00 11</span>
               </a>
             </div>
           </div>
@@ -153,43 +184,56 @@ const Header: React.FC = () => {
       </div>
 
       {/* Main Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
-            <div className="flex items-center">
-              <img
-                src="https://nfsauto.by/wp-content/uploads/2024/10/cropped-logonfs.png"
-                alt="NFS AUTO"
-                className="h-12 w-auto"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjUwIiB2aWV3Qm94PSIwIDAgMTUwIDUwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjUwIiByeD0iOCIgZmlsbD0iIzM0ODNmYSIvPgo8dGV4dCB4PSI3NSIgeT0iMzIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiPk5GUyBBVVRPPC90ZXh0Pgo8L3N2Zz4K';
-                }}
-              />
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                <Car className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  NFS AUTO
+                </h1>
+                <p className="text-xs text-gray-500">Пригон авто из США</p>
+              </div>
             </div>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-8">
-              <div className="relative">
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                 <input
                   type="text"
-                  placeholder="Марка, Модель, VIN"
+                  placeholder="Поиск по марке, модели или VIN номеру..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3.5 pl-12 pr-32 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all duration-300 text-gray-700 placeholder-gray-400"
                 />
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
                   Найти
                 </button>
               </div>
             </div>
 
+            {/* Action Buttons */}
+            <div className="hidden lg:flex items-center space-x-3">
+              <button className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all">
+                <Heart className="w-5 h-5" />
+                <span className="text-sm font-medium">Избранное</span>
+              </button>
+              
+              <button className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2">
+                <Zap className="w-4 h-4" />
+                <span>Быстрый расчет</span>
+              </button>
+            </div>
+
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-gray-600 hover:text-blue-600"
+              className="lg:hidden p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -197,39 +241,52 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="bg-blue-600 text-white">
+      {/* Modern Navigation Menu */}
+      <nav className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg">
         <div className="container mx-auto px-4">
           <div className="hidden lg:flex items-center">
-            {/* Каталог */}
+            {/* Каталог с иконкой */}
             <div
               className="relative group"
               onMouseEnter={() => handleMouseEnter('catalog')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-blue-700 transition-colors">
-                <span className="font-semibold">Каталог</span>
-                <ChevronDown className="w-4 h-4" />
+              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+                <Grid3X3 className="w-5 h-5" />
+                <span>Каталог</span>
+                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
               </button>
 
-              {/* Catalog Mega Menu */}
+              {/* Enhanced Catalog Mega Menu */}
               {activeDropdown === 'catalog' && (
-                <div className="absolute top-full left-0 w-screen max-w-5xl bg-white shadow-2xl border border-gray-200 z-50">
-                  <div className="p-6">
-                    <div className="grid grid-cols-5 gap-6">
+                <div className="absolute top-full left-0 w-screen max-w-6xl bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2 overflow-hidden">
+                  <div className="p-8">
+                    <div className="grid grid-cols-5 gap-8">
                       {catalogMenuItems.map((column, index) => (
-                        <div key={index}>
-                          <h3 className="font-bold text-gray-900 mb-4 text-sm">
-                            {column.category}
-                          </h3>
+                        <div key={index} className="space-y-4">
+                          <div className="flex items-center space-x-2 mb-4">
+                            <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
+                              {column.icon}
+                            </div>
+                            <h3 className="font-bold text-gray-900 text-sm">
+                              {column.category}
+                            </h3>
+                          </div>
                           <ul className="space-y-2">
                             {column.items.map((item, itemIndex) => (
                               <li key={itemIndex}>
                                 <a
                                   href={item.url}
-                                  className="block text-sm text-gray-600 hover:text-blue-600 transition-colors py-1"
+                                  className={`block text-sm hover:text-blue-600 transition-colors py-1.5 px-2 rounded-lg hover:bg-blue-50 ${
+                                    item.popular ? 'text-blue-700 font-medium' : 'text-gray-600'
+                                  }`}
                                 >
-                                  {item.name}
+                                  <div className="flex justify-between items-center">
+                                    <span>{item.name}</span>
+                                    <span className="text-xs text-gray-400">
+                                      {item.count.toLocaleString()}
+                                    </span>
+                                  </div>
                                 </a>
                               </li>
                             ))}
@@ -237,41 +294,55 @@ const Header: React.FC = () => {
                         </div>
                       ))}
                     </div>
+                    <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        Смотреть все марки
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Доставка */}
+            {/* Доставка с иконкой */}
             <div
               className="relative group"
               onMouseEnter={() => handleMouseEnter('delivery')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-blue-700 transition-colors">
-                <span className="font-semibold">Доставка</span>
-                <ChevronDown className="w-4 h-4" />
+              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+                <Truck className="w-5 h-5" />
+                <span>Доставка</span>
+                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
               </button>
 
-              {/* Delivery Dropdown */}
+              {/* Enhanced Delivery Dropdown */}
               {activeDropdown === 'delivery' && (
-                <div className="absolute top-full left-0 w-80 bg-white shadow-2xl border border-gray-200 z-50">
+                <div className="absolute top-full left-0 w-96 bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2 overflow-hidden">
                   <div className="p-6">
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       {deliveryMenuItems.map((item, index) => (
                         <a
                           key={index}
                           href={item.url}
-                          className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                          className={`flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-all duration-300 group ${
+                            item.highlight ? 'bg-blue-50 border border-blue-100' : ''
+                          }`}
                         >
-                          <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                          <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                            item.highlight 
+                              ? 'bg-blue-600 text-white' 
+                              : 'bg-gray-100 text-gray-600 group-hover:bg-blue-600 group-hover:text-white'
+                          }`}>
                             {item.icon}
                           </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600">
+                          <div className="flex-1">
+                            <h4 className={`font-semibold transition-colors ${
+                              item.highlight ? 'text-blue-900' : 'text-gray-900 group-hover:text-blue-600'
+                            }`}>
                               {item.title}
                             </h4>
-                            <p className="text-sm text-gray-600 mt-1">
+                            <p className="text-sm text-gray-600 mt-1 leading-relaxed">
                               {item.description}
                             </p>
                           </div>
@@ -283,29 +354,33 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Информация */}
+            {/* Информация с иконкой */}
             <div
               className="relative group"
               onMouseEnter={() => handleMouseEnter('information')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-blue-700 transition-colors">
-                <span className="font-semibold">Информация</span>
-                <ChevronDown className="w-4 h-4" />
+              <button className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+                <Info className="w-5 h-5" />
+                <span>Информация</span>
+                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
               </button>
 
-              {/* Information Dropdown */}
+              {/* Enhanced Information Dropdown */}
               {activeDropdown === 'information' && (
-                <div className="absolute top-full left-0 w-64 bg-white shadow-2xl border border-gray-200 z-50">
+                <div className="absolute top-full left-0 w-72 bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2 overflow-hidden">
                   <div className="p-4">
-                    <ul className="space-y-2">
+                    <ul className="space-y-1">
                       {informationMenuItems.map((item, index) => (
                         <li key={index}>
                           <a
                             href={item.url}
-                            className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                            className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 group"
                           >
-                            {item.name}
+                            <div className="text-gray-400 group-hover:text-blue-600 transition-colors">
+                              {item.icon}
+                            </div>
+                            <span className="font-medium">{item.name}</span>
                           </a>
                         </li>
                       ))}
@@ -315,44 +390,61 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Еще */}
-            <a href="#more" className="px-6 py-4 hover:bg-blue-700 transition-colors font-semibold">
-              Еще
+            {/* Остальные пункты меню */}
+            <a href="#more" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <Package className="w-5 h-5" />
+              <span>Услуги</span>
             </a>
 
-            {/* Контакты */}
-            <a href="#contacts" className="px-6 py-4 hover:bg-blue-700 transition-colors font-semibold">
-              Контакты
+            <a href="#contacts" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <Phone className="w-5 h-5" />
+              <span>Контакты</span>
             </a>
 
-            {/* Авто из США */}
-            <a href="#usa-cars" className="px-6 py-4 hover:bg-blue-700 transition-colors font-semibold">
-              Авто из США
+            <a href="#usa-cars" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <Car className="w-5 h-5" />
+              <span>Авто из США</span>
             </a>
 
-            {/* Авто в наличии */}
-            <a href="#cars-available" className="px-6 py-4 hover:bg-blue-700 transition-colors font-semibold">
-              Авто в наличии
+            <a href="#cars-available" className="flex items-center space-x-2 px-6 py-4 hover:bg-white/10 transition-all duration-300 font-medium rounded-lg mx-1">
+              <Star className="w-5 h-5" />
+              <span>В наличии</span>
             </a>
 
-            {/* Добавить авто */}
-            <a href="#add-car" className="px-6 py-4 bg-yellow-500 hover:bg-yellow-600 text-black transition-colors font-semibold rounded-none">
-              Добавить авто
+            <a href="#add-car" className="flex items-center space-x-2 px-6 py-4 bg-yellow-500 hover:bg-yellow-600 text-black transition-all duration-300 font-semibold rounded-xl mx-1 shadow-lg transform hover:scale-105">
+              <Zap className="w-5 h-5" />
+              <span>Добавить авто</span>
             </a>
           </div>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="lg:hidden bg-blue-700 p-4">
-              <div className="space-y-2">
-                <a href="#catalog" className="block py-2 hover:text-yellow-400">Каталог</a>
-                <a href="#delivery" className="block py-2 hover:text-yellow-400">Доставка</a>
-                <a href="#information" className="block py-2 hover:text-yellow-400">Информация</a>
-                <a href="#more" className="block py-2 hover:text-yellow-400">Еще</a>
-                <a href="#contacts" className="block py-2 hover:text-yellow-400">Контакты</a>
-                <a href="#usa-cars" className="block py-2 hover:text-yellow-400">Авто из США</a>
-                <a href="#cars-available" className="block py-2 hover:text-yellow-400">Авто в наличии</a>
-                <a href="#add-car" className="block py-2 bg-yellow-500 text-black px-4 rounded hover:bg-yellow-600">Добавить авто</a>
+            <div className="lg:hidden bg-blue-800 rounded-lg m-4 overflow-hidden">
+              <div className="p-4 space-y-2">
+                <a href="#catalog" className="flex items-center space-x-3 py-3 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  <Grid3X3 className="w-5 h-5" />
+                  <span>Каталог</span>
+                </a>
+                <a href="#delivery" className="flex items-center space-x-3 py-3 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  <Truck className="w-5 h-5" />
+                  <span>Доставка</span>
+                </a>
+                <a href="#information" className="flex items-center space-x-3 py-3 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  <Info className="w-5 h-5" />
+                  <span>Информация</span>
+                </a>
+                <a href="#more" className="flex items-center space-x-3 py-3 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  <Package className="w-5 h-5" />
+                  <span>Услуги</span>
+                </a>
+                <a href="#contacts" className="flex items-center space-x-3 py-3 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  <Phone className="w-5 h-5" />
+                  <span>Контакты</span>
+                </a>
+                <a href="#add-car" className="flex items-center space-x-3 py-3 px-4 bg-yellow-500 text-black rounded-lg font-semibold mt-4">
+                  <Zap className="w-5 h-5" />
+                  <span>Добавить авто</span>
+                </a>
               </div>
             </div>
           )}
